@@ -1,0 +1,42 @@
+[
+    {
+        "id": "4eb19828-45c4-11ed-b878-0242ac120002",
+        "timestamp": "",
+        "nombre": "Zapato formal",
+        "descripcion": "zapato en cuero, forro badana, suela en TR",
+        "codigo": "1357",
+        "foto": "./assets/imgProductos/1357.jpg",
+        "precio": 120000,
+        "stock": 8
+    },
+    {
+        "id": "585c1164-45c4-11ed-b878-0242ac120002",
+        "timestamp": "",
+        "nombre": "Zapato casual",
+        "descripcion": "Zapato en cuero suela en TR",
+        "codigo": "9004",
+        "foto": "./assets/imgProductos/9004.jpg",
+        "precio": 110000,
+        "stock": 6
+    },
+    {
+        "id": "63a0ac60-45c4-11ed-b878-0242ac120002",
+        "timestamp": "",
+        "nombre": "Zapato deportivo",
+        "descripcion": "Zapato en cuero suela en TR",
+        "codigo": "8107",
+        "foto": "./assets/imgProductos/8107.jpg",
+        "precio": 120000,
+        "stock": 12
+    },
+    {
+        "id": "496ccf82-eece-432f-86d9-cce83b81e0f3",
+        "timestamp": "2/11/2022, 12:33:36 p. m.",
+        "nombre": "Zapato mujer",
+        "descripcion": "asd",
+        "codigo": "0000",
+        "foto": "https://http2.mlstatic.com/D_NQ_NP_925974-MCO47031522363_082021-O.jpg",
+        "precio": "0",
+        "stock": "0"
+    }
+]

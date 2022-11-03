@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "nombre": "Tela Deportivo",
+        "precio": 150000,
+        "thumbnail": "https://cdn2.iconfinder.com/data/icons/thesquid-ink-40-free-flat-icon-pack/64/nike-dunk-512.png"
+    },
+    {
+        "id": "2",
+        "nombre": "Cuero formal",
+        "precio": 180000,
+        "thumbnail": "https://cdn4.iconfinder.com/data/icons/finance-and-banking-free/64/Finance_cash_stash-512.png"
+    },
+    {
+        "id": "3",
+        "nombre": "Cuero Casual",
+        "precio": 170000,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/spring-2-1/30/Boot-512.png"
+    }
+]

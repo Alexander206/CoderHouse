@@ -1,0 +1,81 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+}
+body .tarjeta__info {
+  width: 65%;
+}
+body #chat {
+  position: fixed;
+  right: 50px;
+  margin-left: 5vw;
+  width: 30%;
+}
+
+body #chat .chat__inferior {
+  width: 30%;
+  position: fixed;
+  bottom: 50px;
+}
+
+body #chat .chat__inferior2 {
+  width: 30%;
+  position: fixed;
+  bottom: 150px;
+}
+
+#chat__contenedor {
+  font-size: 0.8rem;
+}
+
+.correo {
+  color: #00b7ff;
+}
+
+.hora {
+  color: rgb(177, 96, 50);
+}
+
+.mensaje {
+  color: rgb(144, 173, 86);
+}
+
+a {
+  color: #00b7ff;
+}
+
+img {
+  width: 7rem;
+}
+
+#estado-escritura p {
+  font-size: small;
+  color: #00b7ff;
+}
+
+@media (max-width: 800px) {
+  body {
+    flex-direction: column !important;
+  }
+
+  body .tarjeta__info {
+    width: 90%;
+  }
+  body #chat {
+    position: sticky;
+    right: 50px;
+    margin-left: 5vw;
+    width: 90%;
+  }
+
+  body #chat .chat__inferior {
+    width: 100%;
+    position: static;
+    bottom: 50px;
+  }
+
+  #chat__contenedor {
+    min-height: 200px;
+  }
+}

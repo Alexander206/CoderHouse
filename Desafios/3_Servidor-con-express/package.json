@@ -1,0 +1,25 @@
+{
+  "name": "3_desafio_servidor-con-express",
+  "version": "1.0.0",
+  "description": "desafio 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alexander206/3_Desafio_Servidor-con-express"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexander206/3_Desafio_Servidor-con-express/issues"
+  },
+  "homepage": "https://github.com/Alexander206/3_Desafio_Servidor-con-express#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}

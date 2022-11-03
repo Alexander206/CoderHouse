@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html LANG="Spanish">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="DC.Language" scheme="RFC1766" content="Spanish">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera entrega</title>
+    <link rel="icon" href="./assets/Logo.svg">
+    <link rel="stylesheet" href="./css/styles.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+
+    <!-- responsive -->
+
+    <!-- Mobile big/tablet small -->
+    <link rel="stylesheet" href="./css/mobileBig-tabletSmall.css" media="screen and (min-width: 600px)">
+    <!-- Tablet -->
+    <link rel="stylesheet" href="./css/tablet.css" media="screen and (min-width: 800px)">
+    <!-- BigTablet -->
+    <link rel="stylesheet" href="./css/bigTablet.css" media="screen and (min-width: 1024px)">
+    <!-- Laptop -->
+    <link rel="stylesheet" href="./css/laptop.css" media="screen and (min-width: 1440px)">
+
+</head>
+
+<body>
+
+    <!-- Start header -->
+
+    <header>
+        <div class="header-left">
+            <figure class="menu" id="abrirAside">
+                <div>
+                    <div class="menu__component"></div>
+                    <div class="menu__component"></div>
+                </div>
+                <div>
+                    <div class="menu__component"></div>
+                    <div class="menu__component"></div>
+                </div>
+            </figure>
+            <a href="#" class="logo-header">
+                <img class="logo-header__img" src="./assets/Logo.svg" alt="Imagen del logo">
+                <h3 class="logo-header__text">
+                    R<span>o</span>meliny
+                </h3>
+            </a>
+        </div>
+        <nav class="nav-header-center">
+            <ul class="nav-header__list">
+                <li class="nav-header__list__item">
+                    <a href="#">
+                        <h4>
+                            Inicio
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-header__list__item">
+                    <a href="#">
+                        <h4>
+                            Tienda
+                        </h4>
+                    </a>
+                </li>
+                <li class="nav-header__list__item">
+                    <a href="#">
+                        <h4>
+                            Contacto
+                        </h4>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="nav-header-rigth">
+            <ul class="nav-header__list">
+                <li class="nav-header__list__item">
+                    <ion-icon class="abrirLogin" name="person-circle-outline"></ion-icon>
+                </li>
+                <li class="nav-header__list__item">
+                    <a href="">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- End header -->
+    <!-- Start Aside left -->
+
+    <aside class="aside-left-cerrado">
+        <section class="logo-aside">
+            <figure class="menu" id="cerrarAside">
+                <div>
+                    <div class="menu__component"></div>
+                    <div class="menu__component"></div>
+                </div>
+                <div>
+                    <div class="menu__component"></div>
+                    <div class="menu__component"></div>
+                </div>
+            </figure>
+            <a href="./index.html" class="logo-header">
+                <img class="logo-header__img" src="./assets/Logo.svg" alt="Imagen del logo">
+                <h3 class="logo-header__text">
+                    R<span>o</span>meliny
+                </h3>
+            </a>
+        </section>
+
+        <div class="separador-aside"></div>
+
+        <section class="nav-aside">
+            <h3>
+                Navegación
+            </h3>
+            <nav>
+                <ul class="nav-header__list">
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="newspaper-outline"></ion-icon>
+                            <h4>
+                                Inicio
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="storefront-outline"></ion-icon>
+                            <h4>
+                                Tienda
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="call-outline"></ion-icon>
+                            <h4>
+                                Contacto
+                            </h4>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <div class="separador-aside"></div>
+
+        <section class="categories-aside">
+            <h3>
+                Categorías
+            </h3>
+            <nav>
+                <ul class="nav-header__list">
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="bag-outline"></ion-icon>
+                            <h4>
+                                Formal
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="footsteps-outline"></ion-icon>
+                            <h4>
+                                Casual
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="bicycle-outline"></ion-icon>
+                            <h4>
+                                Deportivo
+                            </h4>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <div class="separador-aside"></div>
+
+        <section class="about">
+            <h3>
+                Acerca de Romeliny
+            </h3>
+            <nav>
+                <ul class="nav-header__list">
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="diamond-outline"></ion-icon>
+                            <h4>
+                                Información corporativa
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                            <h4>
+                                Terminos y condiciones
+                            </h4>
+                        </a>
+                    </li>
+                    <li class="nav-header__list__item">
+                        <a href="#">
+                            <ion-icon name="code-slash-outline"></ion-icon>
+                            <h4>
+                                Desarrollador web
+                            </h4>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <div class="separador-aside"></div>
+
+        <section class="social">
+            <h3>
+                Social
+            </h3>
+            <div class="social-div">
+                <a href="#">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+                <a href="#">
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+                <a href="#">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                </a>
+            </div>
+
+        </section>
+
+        <div class="separador-aside"></div>
+
+        <section class="derechos">
+            <p>
+                COPYRIGHT © 2022 ROMELINY
+            </p>
+        </section>
+
+    </aside>
+
+    <!-- End aside left -->
+    <!-- Start component login/register -->
+
+    <aside class="login-registrer-oculto">
+        <ion-icon class="cerrarLogin" name="close-circle-outline"></ion-icon>
+        <h3 class="login-registrer__title">
+            Iniciar sesión
+        </h3>
+        <form class="login-registrer__form" action="">
+            <label for="email">
+                <span>Correo</span>
+                <input type="email" id="email" placeholder=" ejemplo@romeliny.com" required />
+            </label>
+            <label for="password">
+                <span>Contraseña</span>
+                <input type="password" id="password" placeholder=" * * * * * * " required />
+            </label>
+            <button type="submit">Ingresar</button>
+        </form>
+        <a class="registro" href="">
+            <p>
+                ¿No estas registrado? <span> Registrate. </span>
+            </p>
+        </a>
+    </aside>
+
+    <!-- End header, aside left & login -->
+    <!-- Start main -->
+
+    <main>
+        <!-- <aside class="opciones">
+
+            <section class="secction__tarjetas">
+
+                <article class="ON-tarjetaComponent__get-products">
+                    <a class="tarjeta__link-img">
+                        <img src="./assets/img/getProducts.png" alt="">
+                    </a>
+
+                    <div class="tarjeta__info">
+                        <a class="tarjeta__link-title">
+                            <h1 class="tarjeta__title">
+                                Muestra todos los productos
+                            </h1>
+                        </a>
+
+                        <p class="tarjeta__text">
+                            Aquí puedes ver todos tus productos disponibles. Los encontraras organizados por el Id,
+                            nombre, precio y por ultimo la cantidad de productos disponibles
+                        </p>
+
+                        <button class="tarjeta__btn" onclick="productosGET()">
+                            Ver productos
+                        </button>
+
+                    </div>
+                </article>
+
+                <article class="OFF-tarjetaComponent__get-product-Id">
+                    <a class="tarjeta__link-img" href="">
+                        <img src="./assets/img/getProductId.png" alt="">
+                    </a>
+                    <div class="tarjeta__info">
+                        <a href="" class="tarjeta__link-title">
+                            <h1 class="tarjeta__title">
+                                Busca un producto con su ID
+                            </h1>
+                        </a>
+
+                        <p class="tarjeta__text">
+                            Aquí encontraras los las carácteristicas de tu producto buscandolo mediante el ID del
+                            producto.
+                        </p>
+
+                        <form class="tarjeta__form" id="form-Get" method="post">
+                            <label for="id">
+                                <input type="text" name="id" id="id" placeholder="  ID" required />
+                            </label>
+                            <button id="tarjeta__btn-getProduct">
+                                Buscar
+                            </button>
+                        </form>
+
+                    </div>
+                </article>
+
+                <article class="OFF-tarjetaComponent__post-product">
+                    <a class="tarjeta__link-img" href="">
+                        <img src="./assets/img/postProduct.png" alt="">
+                    </a>
+                    <div class="tarjeta__info">
+                        <a href="" class="tarjeta__link-title">
+                            <h1 class="tarjeta__title">
+                                Agrega un nuevo producto
+                            </h1>
+                        </a>
+
+                        <p class="tarjeta__text">
+                            Aqui podras agregar un nuevo producto a la lista de productos ya existente.
+                        </p>
+
+                        <form class="tarjeta__form" id="form-Post" action="/api/productos/" method="POST">
+                            <label for="nombre">
+                                <input type="text" name="nombre" placeholder=" Nombre" required />
+                            </label>
+
+                            <label for="descripcion">
+                                <input type="text" name="descripcion" placeholder=" Descripción" required />
+                            </label>
+
+                            <label for="codigo">
+                                <input type="text" name="codigo" placeholder=" codigo" required />
+                            </label>
+
+                            <label for="foto">
+                                <input type="text" name="foto" placeholder=" URL de la foto" required />
+                            </label>
+
+                            <label for="precio">
+                                <input type="number" name="precio" placeholder=" Precio" required />
+                            </label>
+
+                            <label for="stock">
+                                <input type="number" name="stock" placeholder=" stock" required />
+                            </label>
+                            <button id="tarjeta__btn-postProduct" type="submit">
+                                Agregar
+                            </button>
+                        </form>
+
+                    </div>
+                </article>
+
+                <article class="OFF-tarjetaComponent__put-product-Id">
+                    <a class="tarjeta__link-img" href="">
+                        <img src="./assets/img/putProdutId.png" alt="">
+                    </a>
+                    <div class="tarjeta__info">
+                        <a href="" class="tarjeta__link-title">
+                            <h1 class="tarjeta__title">
+                                Actualiza productos con su ID
+                            </h1>
+                        </a>
+
+                        <p class="tarjeta__text">
+                            Aqui podras actualizar o editar un producto ya existente en la lista de productos.
+                        </p>
+
+                        <form class="tarjeta__form" id="form-Put" method="POST">
+                            <label for="id">
+                                <input type="text" name="id" placeholder=" ID del producto" required />
+                            </label>
+
+                            <label for="nombre">
+                                <input type="text" name="nombre" placeholder=" Nombre" required />
+                            </label>
+
+                            <label for="descripcion">
+                                <input type="text" name="descripcion" placeholder=" Descripción" required />
+                            </label>
+
+                            <label for="codigo">
+                                <input type="text" name="codigo" placeholder=" codigo" required />
+                            </label>
+
+                            <label for="foto">
+                                <input type="text" name="foto" placeholder=" URL de la foto" required />
+                            </label>
+
+                            <label for="precio">
+                                <input type="number" name="precio" placeholder=" Precio" required />
+                            </label>
+
+                            <label for="stock">
+                                <input type="number" name="stock" placeholder=" stock" required />
+                            </label>
+                            <button class="tarjeta__btn" id="tarjeta__btn-putProduct" type="submit">
+                                Modificar
+                            </button>
+                        </form>
+
+                    </div>
+                </article>
+
+                <article class="OFF-tarjetaComponent__delete-product-Id">
+                    <a class="tarjeta__link-img" href="">
+                        <img src="./assets/img/getProductId.png" alt="">
+                    </a>
+                    <div class="tarjeta__info">
+                        <a href="" class="tarjeta__link-title">
+                            <h1 class="tarjeta__title">
+                                Borra un producto con su ID
+                            </h1>
+                        </a>
+
+                        <p class="tarjeta__text">
+                            Aqui puedes borrar el producto que quieras, sabiendo su ID.
+                        </p>
+
+                        <form class="tarjeta__form" id="form-Delete" method="POST">
+                            <label for="id">
+                                <input type="text" name="id" placeholder="  ID" required />
+                            </label>
+                            <button type="submit" id="tarjeta__btn-deleteProduct">Buscar</button>
+                        </form>
+
+                    </div>
+                </article>
+
+            </section>
+
+        </aside> -->
+
+        <article class="resultados">
+            <div class="superior-resultados">
+                <div class="contenedor__titulo">
+                    <h1 class="title">
+                        Administrador de productos
+                    </h1>
+                    <p class="text">
+                        Selecciona una opción
+                    </p>
+                </div>
+
+                <div class="contenedor__opciones">
+                    <button class="getProducts" value="0">
+                        <img src="./assets/img/getProductsWhite.png" alt="">
+                        Ver todos los productos
+                    </button>
+                    <button class="getProductId" value="1">
+                        <img src="./assets/img/getProductIdWhite.png" alt="">
+                        Buscar un producto
+                    </button>
+                    <button class="postProduct" value="2">
+                        <img src="./assets/img/postProductWhite.png" alt="">
+                        Agregar un producto
+                    </button>
+                    <button class="putProductId" value="3">
+                        <img src="./assets/img/putProdutIdWhite.png" alt="">
+                        Actualizar un producto
+                    </button>
+                    <button class="deleteProductId" value="4">
+                        <img src="./assets/img/deleteProductIdWhite.png" alt="">
+                        Borrar un producto
+                    </button>
+                </div>
+            </div>
+            <div class="productos"></div>
+        </article>
+
+        <section class="tool_bar">
+            <div class="tool_bar__container">
+                <button class="tool_btn__search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </button>
+                <button class="tool_btn__add">
+                    <ion-icon name="add-outline"></ion-icon>
+                </button>
+                <button class="tool_btn__info">
+                    <ion-icon name="help-outline"></ion-icon>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section class="footer__information">
+            <article>
+                <figure class="footer__logo">
+                    <img src="./assets/img/logo-white.svg" alt="">
+                </figure>
+            </article>
+            <div class="footer__separador"></div>
+            <div class="developer">
+                <p>
+                    <b>Desarrollador</b> <br>
+                    Jeisson Gavilán
+                </p>
+                <figure>
+                    <a href="https://jeissonalexander.000webhostapp.com/index.html">
+                        <img src="./assets/iconos/web.svg" alt="">
+                    </a>
+                    <a href="https://www.instagram.com/amarokdev/">
+                        <img src="./assets/iconos/instagram.svg" alt="">
+                    </a>
+                    <a href="https://www.linkedin.com/in/jeisson-alexander/">
+                        <img src="./assets/iconos/linkedin.svg" alt="">
+                    </a>
+                </figure>
+            </div>
+        </section>
+        <section class="footer__derechos">
+            <p>
+                COPYRIGHT © 2022 ROMELINY TODOS LOS DERECHOS RESERVADOS
+            </p>
+        </section>
+    </footer>
+
+    <script src="./scripts/app.js"></script>
+
+    <!-- Iconos -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

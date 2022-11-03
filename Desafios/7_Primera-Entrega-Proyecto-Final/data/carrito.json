@@ -1,0 +1,64 @@
+[
+    {
+        "id": "a5bae964-07a4-45bf-b97d-eade4abe7e84",
+        "timestamp": "0",
+        "productos": [
+            {
+                "id": "63a0ac60-45c4-11ed-b878-0242ac120002",
+                "timestamp": "",
+                "nombre": "Zapato deportivo",
+                "descripcion": "Zapato en cuero suela en TR",
+                "codigo": "8107",
+                "foto": "./assets/imgProductos/8107.jpg",
+                "precio": 120000,
+                "stock": 12
+            },
+            {
+                "id": "b06b40f6-fa35-46ee-a04d-83015c31f42b",
+                "timestamp": "12/10/2022, 2:07:59 p. m.",
+                "nombre": "Zapato deportivo",
+                "descripcion": "Zapato en cuero suela en TR",
+                "codigo": "8107",
+                "foto": "./assets/imgProductos/8107.jpg",
+                "precio": 120000,
+                "stock": 12
+            }
+        ]
+    },
+    {
+        "id": "f1064778-d5d6-4fd3-add6-57761a71e008",
+        "timestamp": "12/10/2022, 2:10:55 p. m.",
+        "productos": [
+            {
+                "id": "7032ff61-e2a2-44fa-af38-bca1bf385649",
+                "timestamp": "12/10/2022, 2:13:37 p. m.",
+                "nombre": "Zapato deportivo",
+                "descripcion": "Zapato en cuero suela en TR",
+                "codigo": "8107",
+                "foto": "./assets/imgProductos/8107.jpg",
+                "precio": 120000,
+                "stock": 12
+            },
+            {
+                "id": "a22f2a70-0dcc-4f07-a955-721f99f37733",
+                "timestamp": "12/10/2022, 4:27:48 p. m.",
+                "nombre": "Zapato casual",
+                "descripcion": "Zapato en cuero suela en TR",
+                "codigo": "9004",
+                "foto": "./assets/imgProductos/9004.jpg",
+                "precio": 110000,
+                "stock": 6
+            }
+        ]
+    },
+    {
+        "id": "96a76e9a-849a-41ce-a5b0-0998b45c9270",
+        "timestamp": "15/10/2022, 7:48:50 p. m.",
+        "productos": []
+    },
+    {
+        "id": "9804a1e7-95e0-4f9d-a926-991eacecf9ac",
+        "timestamp": "15/10/2022, 7:50:19 p. m.",
+        "productos": []
+    }
+]

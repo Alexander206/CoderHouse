@@ -1,0 +1,97 @@
+.presentacion {
+  padding-bottom: 150px;
+}
+
+.presentacion__title {
+  font-size: 6rem;
+}
+
+.presentacion__subTitle {
+  font-size: 1.6rem;
+}
+
+.separador__presentacion {
+  width: 450px;
+}
+
+.presentacion__text {
+  font-size: 1.4rem;
+}
+
+.btn-presentacion {
+  width: 240px;
+  height: 60px;
+  font-size: 1.2rem;
+}
+
+.presentacion__image img {
+  width: 600px;
+}
+
+.separador__categoria__title {
+  font-size: 1.4rem;
+}
+
+.conponent-categoria {
+  margin: 0 40px;
+  width: 280px;
+  height: 350px;
+}
+
+#casual {
+  background-position: 0;
+}
+
+#formal {
+  background-position: 0 10px;
+}
+
+#deportivo {
+  background-position: 0 80px;
+}
+
+.productos {
+  font-size: 1.2em;
+  padding: 150px 0;
+}
+
+.separador__productos {
+  margin: 50px;
+}
+
+.productos__component {
+  flex-direction: row;
+}
+
+.productos__item {
+  width: 210px;
+}
+
+.conocenos,
+.conocenos__gradient,
+.conocenos__article {
+  height: 700px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.conocenos__article h1,
+.conocenos__article p {
+  margin: 40px 0;
+}
+
+/* Estilos para registro */
+
+.form-izquierda {
+  margin-right: 7vw;
+}
+
+.imgRegistro {
+  display: flex;
+  flex-direction: column;
+}
+
+.imgRegistro img {
+  align-self: center;
+  left: 0px;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html LANG="Spanish">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="DC.Language" scheme="RFC1766" content="Spanish">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 5 API Motores de plantillas</title>
+    <link rel="icon" href="./assets/Logo.svg">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <main>
+
+        <article class="OFF-tarjetaComponent__post-product">
+            <div class="tarjeta__info">
+
+                <table class="default">
+                    <tr>
+                        <th>ID</th>
+                        <th>NOMBRE</th>
+                        <th>PRECIO</th>
+                        <th>IMAGEN</th>
+                    </tr>
+                    <% if (isEmpty) { %>
+                        <tr>
+                            <td>No hay usuarios registrados aún</td>
+                        </tr>
+                        <% } %>
+                            <% listaProductos.forEach(function(producto) { %>
+                                <%- include('partials/fila-producto', {producto: producto}); %>
+                                    <% }); %>
+                </table>
+
+            </div>
+        </article>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
