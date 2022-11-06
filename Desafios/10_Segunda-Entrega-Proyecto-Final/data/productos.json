@@ -1,15 +1,5 @@
 [
     {
-        "id": "4eb19828-45c4-11ed-b878-0242ac120002",
-        "timestamp": "",
-        "nombre": "Zapato formal",
-        "descripcion": "zapato en cuero, forro badana, suela en TR",
-        "codigo": "1357",
-        "foto": "./assets/imgProductos/1357.jpg",
-        "precio": 120000,
-        "stock": 8
-    },
-    {
         "id": "585c1164-45c4-11ed-b878-0242ac120002",
         "timestamp": "",
         "nombre": "Zapato casual",
@@ -30,8 +20,8 @@
         "stock": 12
     },
     {
-        "id": "496ccf82-eece-432f-86d9-cce83b81e0f3",
-        "timestamp": "2/11/2022, 12:33:36 p. m.",
+        "id": "252e86ac-612c-4ce6-a48b-14e68d19446b",
+        "timestamp": "6/11/2022, 10:06:06 a. m.",
         "nombre": "Zapato mujer",
         "descripcion": "asd",
         "codigo": "0000",

@@ -1,22 +1,24 @@
-let btnActivarAside = document.querySelector('#abrirAside');
-let btnDesactivarAside = document.querySelector('#cerrarAside');
-let asideLeft = document.querySelector('.aside-left-cerrado');
+// Variables para las ventanas
 
-// Botones del selector
+let btnBuscarCerrar = document.querySelector('.btn-abrir__get-product-id');
+let btnBuscarAbrir = document.querySelector('.tool_btn__search');
+let btnPostAbrir = document.querySelector('.tool_btn__add');
+let btnPostCerrar = document.querySelector('.btn-abrir__post-product');
+let btnPutCerrar = document.querySelector('.btn-abrir__put-product');
 
-let btnGetProducts = document.querySelector('.getProducts');
-let btnGetProductId = document.querySelector('.getProductId');
-let btnPostProduct = document.querySelector('.postProduct');
-let btnPutProductId = document.querySelector('.putProductId');
-let btnDeleteProductId = document.querySelector('.deleteProductId');
+let cartGetId = document.querySelector('.OFF-tarjetaComponent__get-product-Id');
+let cartPost = document.querySelector('.OFF-tarjetaComponent__post-product');
+let cartPut = document.querySelector('.OFF-tarjetaComponent__put-product-Id');
 
-// Tarjetas de CRUD
+// Variables para ventana Put
 
-let tarjetaGetProducts = document.querySelector('.ON-tarjetaComponent__get-products');
-let tarjetaGetProductId = document.querySelector('.OFF-tarjetaComponent__get-product-Id');
-let tarjetaPostProduct = document.querySelector('.OFF-tarjetaComponent__post-product');
-let tarjetaPutProductId = document.querySelector('.OFF-tarjetaComponent__put-product-Id');
-let tarjetaDeleteProductId = document.querySelector('.OFF-tarjetaComponent__delete-product-Id');
+let formPutID = document.querySelector('.PutID');
+let formPutNombre = document.querySelector('.PutNombre');
+let formPutDescripcion = document.querySelector('.PutDescripcion');
+let formPutCodigo = document.querySelector('.PutCodigo');
+let formPutFoto = document.querySelector('.PutFoto');
+let formPutPrecio = document.querySelector('.PutPrecio');
+let formPutStock = document.querySelector('.PutStock');
 
 /* variables del  formulario */
 
@@ -33,94 +35,92 @@ const btnFormDeleteProduct = document.getElementById('tarjeta__btn-deleteProduct
 const id_productDelete = document.getElementById('form-Delete');
 
 const url = '/api/productos';
+const urlCarrito = '/api/carrito';
 let respuesta;
 let resultados = document.querySelector('.productos');
 
-// Logica para mostrar y ocultar tarjetas
+// Funciones para abrir y cerrar ventanas
 
-btnGetProducts.addEventListener('click', () => {
-    tarjetaGetProducts.className = 'ON-tarjetaComponent__get-products';
-    tarjetaGetProductId.className = 'OFF-tarjetaComponent__get-product-Id';
-    tarjetaPostProduct.className = 'OFF-tarjetaComponent__post-product';
-    tarjetaPutProductId.className = 'OFF-tarjetaComponent__put-product-Id';
-    tarjetaDeleteProductId.className = 'OFF-tarjetaComponent__delete-product-Id';
+btnBuscarAbrir.addEventListener('click', () => {
+    cartGetId.className = 'ON-tarjetaComponent__get-product-Id';
+    cartPost.className = 'OFF-tarjetaComponent__get-product-Id';
 });
 
-btnGetProductId.addEventListener('click', () => {
-    tarjetaGetProducts.className = 'OFF-tarjetaComponent__get-products';
-    tarjetaGetProductId.className = 'ON-tarjetaComponent__get-product-Id';
-    tarjetaPostProduct.className = 'OFF-tarjetaComponent__post-product';
-    tarjetaPutProductId.className = 'OFF-tarjetaComponent__put-product-Id';
-    tarjetaDeleteProductId.className = 'OFF-tarjetaComponent__delete-product-Id';
+btnBuscarCerrar.addEventListener('click', () => {
+    cartGetId.className = 'OFF-tarjetaComponent__get-product-Id';
 });
 
-btnPostProduct.addEventListener('click', () => {
-    tarjetaGetProducts.className = 'OFF-tarjetaComponent__get-products';
-    tarjetaGetProductId.className = 'OFF-tarjetaComponent__get-product-Id';
-    tarjetaPostProduct.className = 'ON-tarjetaComponent__post-product';
-    tarjetaPutProductId.className = 'OFF-tarjetaComponent__put-product-Id';
-    tarjetaDeleteProductId.className = 'OFF-tarjetaComponent__delete-product-Id';
+btnPostAbrir.addEventListener('click', () => {
+    cartPost.className = 'ON-tarjetaComponent__get-product-Id';
+    cartGetId.className = 'OFF-tarjetaComponent__get-product-Id';
 });
 
-btnPutProductId.addEventListener('click', () => {
-    tarjetaGetProducts.className = 'OFF-tarjetaComponent__get-products';
-    tarjetaGetProductId.className = 'OFF-tarjetaComponent__get-product-Id';
-    tarjetaPostProduct.className = 'OFF-tarjetaComponent__post-product';
-    tarjetaPutProductId.className = 'ON-tarjetaComponent__put-product-Id';
-    tarjetaDeleteProductId.className = 'OFF-tarjetaComponent__delete-product-Id';
+btnPostCerrar.addEventListener('click', () => {
+    cartPost.className = 'OFF-tarjetaComponent__get-product-Id';
 });
 
-btnDeleteProductId.addEventListener('click', () => {
-    tarjetaGetProducts.className = 'OFF-tarjetaComponent__get-products';
-    tarjetaGetProductId.className = 'OFF-tarjetaComponent__get-product-Id';
-    tarjetaPostProduct.className = 'OFF-tarjetaComponent__post-product';
-    tarjetaPutProductId.className = 'OFF-tarjetaComponent__put-product-Id';
-    tarjetaDeleteProductId.className = 'ON-tarjetaComponent__delete-product-Id';
+btnPutCerrar.addEventListener('click', () => {
+    cartPut.className = 'OFF-tarjetaComponent__put-product-Id';
 });
 
-// Logica para aside left
-
-btnActivarAside.addEventListener('click', abrirAside);
-btnDesactivarAside.addEventListener('click', cerrarAside);
-
-function abrirAside() {
-    asideLeft.className = 'aside-left-abierto';
+async function eliminarProducto(id) {
+    await fetch(url)
+        .then((res) => res.json())
+        .then((response) => (respuesta = response));
+    productoDELETE(respuesta[id].id);
+    productosGET();
 }
 
-function cerrarAside() {
-    asideLeft.className = 'aside-left-cerrado';
-}
+async function mostrarEditar(id) {
+    console.log(id);
+    await fetch(url)
+        .then((res) => res.json())
+        .then((response) => (respuesta = response));
 
-// Logica para aside login/registrer
+    formPutID.placeholder = `${respuesta[id].id}`;
+    formPutID.value = respuesta[id].id;
 
-let btnActivarLogin = document.querySelector('.abrirLogin');
-let btnDesactivarLogin = document.querySelector('.cerrarLogin');
-let login = document.querySelector('.login-registrer-oculto');
+    formPutNombre.placeholder = `${respuesta[id].nombre}`;
+    formPutNombre.value = respuesta[id].nombre;
 
-btnActivarLogin.addEventListener('click', abrirLogin);
-btnDesactivarLogin.addEventListener('click', cerrarLogin);
+    formPutDescripcion.placeholder = `${respuesta[id].descripcion}`;
+    formPutDescripcion.value = respuesta[id].descripcion;
 
-function abrirLogin() {
-    login.className = 'login-registrer-visible';
-}
+    formPutCodigo.placeholder = `${respuesta[id].codigo}`;
+    formPutCodigo.value = respuesta[id].codigo;
 
-function cerrarLogin() {
-    login.className = 'login-registrer-oculto';
+    formPutFoto.placeholder = `${respuesta[id].foto}`;
+    formPutFoto.value = respuesta[id].foto;
+
+    formPutPrecio.placeholder = `${respuesta[id].precio}`;
+    formPutPrecio.value = respuesta[id].precio;
+
+    formPutStock.placeholder = `${respuesta[id].stock}`;
+    formPutStock.value = respuesta[id].stock;
+
+    cartPut.className = 'ON-tarjetaComponent__put-product-Id';
 }
 
 // Logica para el formulario
 
 productosGET();
 
-// Eventos de los botones
+// Eventos de los botones del CRUD
 
 btnFormGetProduct.addEventListener('click', (event) => {
     event.preventDefault();
+
+    cartGetId.className = 'OFF-tarjetaComponent__get-product-Id';
+    cartPost.className = 'OFF-tarjetaComponent__get-product-Id';
+
     productoGET(id_getProduct.id.value);
 });
 
 btnFormPostProduct.addEventListener('click', (event) => {
     event.preventDefault();
+
+    cartGetId.className = 'OFF-tarjetaComponent__get-product-Id';
+    cartPost.className = 'OFF-tarjetaComponent__get-product-Id';
 
     productoPOST(
         body_productPost.nombre.value,
@@ -173,13 +173,13 @@ async function productosGET() {
             <img src="${respuesta[i].foto}" alt="">
             </figure>
             <div class="producto__cont__categoria-carrito">
-            <button class="btn__producto__carrito" value="${}">
+            <button class="btn__producto__carrito" onclick="productoCarritoPOST('${respuesta[i].id}')">
             <ion-icon name="cart-outline"></ion-icon>
             </button>
-            <button class="btn__producto__editar" >
+            <button class="btn__producto__editar" onclick="mostrarEditar(${i})">
             <ion-icon name="pencil-outline"></ion-icon>
             </button>
-            <button class="btn__producto__eliminar">
+            <button class="btn__producto__eliminar" onclick="eliminarProducto(${i})">
             <ion-icon name="trash-outline"></ion-icon>
             </button>
             </div>
@@ -224,10 +224,10 @@ async function productoGET(id) {
     <button class="btn__producto__carrito" value="${respuesta.id}">
     <ion-icon name="cart-outline"></ion-icon>
     </button>
-    <button class="btn__producto__editar" value="${respuesta.id}">
+    <button class="btn__producto__editar" onclick="mostrarEditar(${respuesta})" >
     <ion-icon name="pencil-outline"></ion-icon>
     </button>
-    <button class="btn__producto__eliminar" value="${respuesta.id}">
+    <button class="btn__producto__eliminar" onclick="eliminarProducto(${id})">
     <ion-icon name="trash-outline"></ion-icon>
     </button>
     </div>
@@ -313,6 +313,23 @@ async function productoDELETE(id) {
     };
 
     await fetch(`${url}/${id}`, optionsDELETE)
+        .then((res) => res.json())
+        .then((response) => console.log(response));
+}
+
+async function productoCarritoPOST(idProducto) {
+    const optionsPOST = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    await fetch(urlCarrito)
+        .then((res) => res.json())
+        .then((response) => (respuesta = response));
+
+    await fetch(`${urlCarrito}/${respuesta[0].id}/productos/${idProducto}`, optionsPOST)
         .then((res) => res.json())
         .then((response) => console.log(response));
 }
