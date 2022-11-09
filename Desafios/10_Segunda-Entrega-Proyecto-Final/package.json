@@ -16,6 +16,7 @@
     "express-useragent": "^1.0.15",
     "firebase-admin": "^11.2.0",
     "lodash": "^4.17.21",
+    "mongoose": "^6.7.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

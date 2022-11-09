@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a6f871cd-ea30-4d88-937e-625208ab967d",
-		"name": "Primera Entrega",
+		"_postman_id": "698f3303-242f-4e40-a97d-bde13598b8f1",
+		"name": "Segunda Entrega",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23358764"
 	},
@@ -124,6 +124,26 @@
 						"api",
 						"productos",
 						"63a0ac60-45c4-11ed-b878-0242ac120002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carrito Ver",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carrito",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito"
 					]
 				}
 			},
