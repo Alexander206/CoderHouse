@@ -207,7 +207,7 @@ async function productosGET() {
         componente = componente + '</div>';
     }
 
-    resultados.innerHTML = componente;
+    resultados.innerHTML = compo nente;
 }
 
 async function productoGET(id) {

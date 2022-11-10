@@ -8,7 +8,7 @@ Para crear una base de datos de manera local con `MongoD` se hace lo siguiente:
 
     2. Se escribe el comando mongod --dbpath "Ruta de la carpeta"
 
-    3. En otra terminal se hace el comando mongosh para poder ver las bases de datos disponibles
+    3. En otra terminal se hace el comando `mongosh` para poder ver las bases de datos disponibles
 
 - ### ADVERTENCIA, La carpeta creada debe comprimirse y enviarse para los efectos del curso.
 

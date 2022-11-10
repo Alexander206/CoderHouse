@@ -1,6 +1,6 @@
 // Clases importadas
 const ContenedorMemoria = require('../../contenedores/ContenedorMemoria');
-const ProductoDaoMemoria = require('../productos/ProductosDaoMemoria.js');
+const ProductoDaoMemoria = require('../productos/ProductosDaoMen.js');
 
 // Generador de hora
 const today = new Date();
