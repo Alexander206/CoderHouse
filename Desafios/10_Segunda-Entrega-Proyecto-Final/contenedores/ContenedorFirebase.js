@@ -1,17 +1,19 @@
-const FirebaseAdmin = require('firebase-admin');
-const path = require('path');
+// Importando dependencias
+import FirebaseAdmin from 'firebase-admin';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // generador de hora
 const today = new Date();
 
 // generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
-const serviceAccount = require(path.join(
-    __dirname,
-    '../db/Firebase/',
-    'coderhouse-e02bb-firebase-adminsdk-flfpc-57e33cdad9.json',
-));
+// Ruta del archivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const serviceAccount = path.join(__dirname, '../db/Firebase/', process.env.FIREBASE_CERT_PATH);
 
 FirebaseAdmin.initializeApp({
     credential: FirebaseAdmin.credential.cert(serviceAccount),
@@ -116,4 +118,4 @@ class ContenedorFirebase {
     }
 }
 
-module.exports = ContenedorFirebase;
+export default ContenedorFirebase;

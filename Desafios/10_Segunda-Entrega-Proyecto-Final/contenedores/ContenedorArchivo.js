@@ -1,14 +1,22 @@
-const fs = require('fs');
-const path = require('path');
+// Importando dependencias
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 // generador de hora
 const today = new Date();
 
 // generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
+// Ruta del archivo
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log(__dirname);
 class ContenedorArchivo {
     constructor(archivo) {
-        this.archivo = path.join(__dirname, '/../db/Archivo', archivo);
+        this.archivo = path.join(__filename, '..', '../db/Archivo', archivo);
     }
 
     leerArchivo() {
@@ -70,7 +78,7 @@ class ContenedorArchivo {
             fs.writeFileSync(this.archivo, JSON.stringify(data, '', 4), 'utf-8');
             return data[data.length - 1].id;
         } catch (error) {
-            console.log(error.message);
+            return { error: `No se pudo crear el objeto: ${error.message}` };
         }
     }
 
@@ -94,7 +102,7 @@ class ContenedorArchivo {
                 return { error: 'No se encuentra el objeto' };
             }
         } catch (error) {
-            console.log(error.message);
+            return { error: `hubo un error al modificar un objeto ${error.message}` };
         }
     }
 
@@ -113,9 +121,9 @@ class ContenedorArchivo {
                 return { error: 'No se pudo borrar el objeto' };
             }
         } catch (error) {
-            console.log(error.message);
+            return { error: `No se pudo borrar el objeto ${error.message}` };
         }
     }
 }
 
-module.exports = ContenedorArchivo;
+export default ContenedorArchivo;

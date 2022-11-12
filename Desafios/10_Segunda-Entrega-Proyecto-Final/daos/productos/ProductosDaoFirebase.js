@@ -1,5 +1,5 @@
 // Clases importadas
-const ContenedorFirebase = require('../../contenedores/ContenedorFirebase');
+import ContenedorFirebase from '../../contenedores/ContenedorFirebase.js';
 
 class ProductosDaoArchivo extends ContenedorFirebase {
     // Ruta del archivo de productos
@@ -8,4 +8,4 @@ class ProductosDaoArchivo extends ContenedorFirebase {
     }
 }
 
-module.exports = ProductosDaoArchivo;
+export default ProductosDaoArchivo;

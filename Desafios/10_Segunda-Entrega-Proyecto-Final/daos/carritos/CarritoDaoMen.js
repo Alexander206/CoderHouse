@@ -1,12 +1,12 @@
 // Clases importadas
-const ContenedorMemoria = require('../../contenedores/ContenedorMemoria');
-const ProductoDaoMemoria = require('../productos/ProductosDaoMen.js');
+import ContenedorMemoria from '../../contenedores/ContenedorMemoria.js';
+import ProductoDaoMemoria from '../productos/ProductosDaoMen.js';
 
 // Generador de hora
 const today = new Date();
 
 // Generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 // Instancia de productos
 
@@ -87,4 +87,4 @@ class CarritoDaoMemoria extends ContenedorMemoria {
     }
 }
 
-module.exports = CarritoDaoMemoria;
+export default CarritoDaoMemoria;

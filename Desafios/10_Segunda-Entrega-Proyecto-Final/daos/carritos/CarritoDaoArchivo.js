@@ -1,12 +1,12 @@
 // Clases importadas
-const ContenedorArchivo = require('../../contenedores/ContenedorArchivo');
-const ProductoDaoArchivo = require('../productos/ProductosDaoArchivo.js');
+import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js';
+import ProductoDaoArchivo from '../productos/ProductosDaoArchivo.js';
 
 // Generador de hora
 const today = new Date();
 
 // Generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 // Instancia de productos
 
@@ -91,4 +91,4 @@ class CarritoDaoArchivo extends ContenedorArchivo {
     }
 }
 
-module.exports = CarritoDaoArchivo;
+export default CarritoDaoArchivo;

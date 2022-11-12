@@ -2,7 +2,7 @@
 const today = new Date();
 
 // generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 class ContenedorMemoria {
     constructor() {
@@ -91,4 +91,4 @@ class ContenedorMemoria {
     }
 }
 
-module.exports = ContenedorMemoria;
+export default ContenedorMemoria;

@@ -1,8 +1,8 @@
 // Clases importadas
-const ContenedorMemoria = require('../../contenedores/ContenedorMemoria');
+import ContenedorMemoria from '../../contenedores/ContenedorMemoria.js';
 
 class ProductosDaoMemoria extends ContenedorMemoria {
     // Ruta del archivo de productos
 }
 
-module.exports = ProductosDaoMemoria;
+export default ProductosDaoMemoria;

@@ -1,12 +1,12 @@
 // Clases importadas
-const ContenedorFirebase = require('../../contenedores/ContenedorFirebase');
-const ProductoDaoFirebase = require('../productos/ProductosDaoFirebase.js');
+import ContenedorFirebase from '../../contenedores/ContenedorFirebase.js';
+import ProductoDaoFirebase from '../productos/ProductosDaoFirebase.js';
 
 // Generador de hora
 const today = new Date();
 
 // Generador de id
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 // Instancia de productos
 
@@ -91,8 +91,4 @@ class CarritoDaoArchivo extends ContenedorFirebase {
     }
 }
 
-let prueba = new CarritoDaoArchivo();
-
-prueba.guardarProducto('729b9d30-237a-4e2e-aad2-48a3fbaae056', '1532273f-2711-479e-b923-cd033dab51eb');
-
-module.exports = CarritoDaoArchivo;
+export default CarritoDaoArchivo;

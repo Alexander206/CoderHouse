@@ -1,5 +1,5 @@
 // Clases importadas
-const ContenedorArchivo = require('../../contenedores/ContenedorArchivo');
+import ContenedorArchivo from '../../contenedores/ContenedorArchivo.js';
 
 class ProductosDaoArchivo extends ContenedorArchivo {
     // Ruta del archivo de productos
@@ -8,4 +8,4 @@ class ProductosDaoArchivo extends ContenedorArchivo {
     }
 }
 
-module.exports = ProductosDaoArchivo;
+export default ProductosDaoArchivo;

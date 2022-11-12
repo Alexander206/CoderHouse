@@ -11,13 +11,13 @@
     },
     {
         "id": "63a0ac60-45c4-11ed-b878-0242ac120002",
-        "timestamp": "",
-        "nombre": "Zapato deportivo",
-        "descripcion": "Zapato en cuero suela en TR",
-        "codigo": "8107",
-        "foto": "./assets/imgProductos/8107.jpg",
-        "precio": 120000,
-        "stock": 12
+        "timestamp": "12/11/2022, 4:24:54 p. m.",
+        "nombre": "Zapato editado",
+        "descripcion": "zapato EDITADO para prueba en postman",
+        "codigo": "1111",
+        "foto": "./assets/imgProductos/1357.jpg",
+        "precio": 1,
+        "stock": 1
     },
     {
         "id": "252e86ac-612c-4ce6-a48b-14e68d19446b",
@@ -28,5 +28,15 @@
         "foto": "https://http2.mlstatic.com/D_NQ_NP_925974-MCO47031522363_082021-O.jpg",
         "precio": "0",
         "stock": "0"
+    },
+    {
+        "id": "a1742c4e-0eb9-4f6b-bec2-a1873e36babb",
+        "timestamp": "12/11/2022, 4:24:39 p. m.",
+        "nombre": "Zapato nuevo",
+        "descripcion": "zapato para prueba en postman",
+        "codigo": "0000",
+        "foto": "./assets/imgProductos/1357.jpg",
+        "precio": 0,
+        "stock": 0
     }
 ]
