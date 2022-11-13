@@ -1,55 +1,43 @@
-import { schema, normalize, denormalize } from 'normalizr'
-import util from 'util'
-import fs from 'fs'
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const holding = JSON.parse(fs.readFileSync('./holding.json'))
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var productosTest = require('./routes/productosTest');
 
-function print(object) {
-  console.log(util.inspect(object, false, 14, true));
-}
+var app = express();
 
-const employeeSchema = new schema.Entity('employees')
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
-const companySchema = new schema.Entity('companies', {
-  gerente: employeeSchema,
-  encargado: employeeSchema,
-  empleados: [employeeSchema]
-})
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-const holdingSchema = new schema.Entity('grupos', {
-  empresas: [companySchema]
-})
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/api', productosTest);
 
-const originalSize = JSON.stringify(holding).length
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(createError(404));
+});
 
-console.log('--------------------------------------------------------------------');
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-console.log('Data Original', originalSize)
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
 
-print(holding)
-
-console.log('--------------------------------------------------------------------');
-
-const dataNormalized = normalize(holding, holdingSchema)
-
-const normalizedSize = JSON.stringify(dataNormalized).length
-
-console.log('Data Normalized', normalizedSize)
-
-print(dataNormalized)
-
-console.log('--------------------------------------------------------------------');
-
-const dataReversed = denormalize(dataNormalized.result, holdingSchema, dataNormalized.entities)
-
-console.log('Data Reversed', JSON.stringify(dataReversed).length)
-
-print(dataReversed)
-
-console.log('--------------------------------------------------------------------');
-
-const result = (normalizedSize * 100) / originalSize
-
-console.log('Porcentage de compresion:', result.toFixed(2), '%')
-
-
+module.exports = app;

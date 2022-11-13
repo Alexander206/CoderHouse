@@ -1,0 +1,15 @@
+{
+    "mensajes": [
+        {
+            "author": {
+                "id": "admin@prueba.com",
+                "nombre": "Usuario",
+                "apellido": "Administrador",
+                "edad": 0,
+                "alias": "Admin",
+                "avatar": "https://cdn-icons-png.flaticon.com/512/1466/1466134.png"
+            },
+            "text": "Si necesitas soporte escribe tu correo electrónico, envia un mensaje y mantente en linea. Estamos felices de poderte ayudar 🫡"
+        }
+    ]
+}
