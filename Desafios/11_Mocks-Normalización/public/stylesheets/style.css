@@ -54,6 +54,7 @@ body #chat .chat__inferior2 {
 
 #chat__contenedor {
     font-size: 0.8rem;
+    scroll-behavior: initial;
 }
 
 .correo {
@@ -66,6 +67,11 @@ body #chat .chat__inferior2 {
 
 .mensaje {
     color: rgb(144, 173, 86);
+}
+
+.imagen img {
+    width: 32px;
+    border-radius: 50%;
 }
 
 a {

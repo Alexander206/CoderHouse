@@ -1,69 +1,76 @@
-const knex = require('knex');
-const { reverse } = require('lodash');
+// Importando dependencias
+const fs = require('fs');
+const path = require('path');
+const { schema } = require('normalizr');
+const { normalize } = require('normalizr');
+const { denormalize } = require('normalizr');
+const util = require('util');
 
-// Opciones para SQLite3
+class chatdb {
+    constructor() {
+        this.archivo = path.join(__dirname, './chat.json');
+    }
 
-const optionsSQLite3 = {
-    client: 'sqlite3',
-    connection: {
-        filename: './db/ecommerce.sqlite'
-    },
-}
-
-// Funciones para MySQL / MariaDB
-
-async function crearTabla() {
-    const knexInstance = knex(optionsSQLite3)
-    try {
-        const exist = await knexInstance.schema.hasTable('mensajes')
-        if (exist) {
-            console.log('La tabla mensajes ya existe');
-            return true
+    leerArchivo() {
+        try {
+            const data = fs.readFileSync(this.archivo, 'utf-8');
+            return JSON.parse(data);
+        } catch (error) {
+            console.log('No se puede leer el archivo', error.message);
         }
-        await knexInstance.schema.createTable('mensajes', table => {
-            table.string('hora')
-            table.string('correo')
-            table.string('mensaje')
-        })
-        console.log('Tabla mensajes creada');
-    } catch (error) {
-        console.log(error.message);
-    } finally {
-        knexInstance.destroy();
+    }
+
+    verificarExistencia() {
+        return this.leerArchivo().mensajes.length > 0;
+    }
+
+    // Método que obtiene todos los objetos
+
+    async listarTodos() {
+        try {
+            if (this.verificarExistencia()) {
+                let data = await this.leerArchivo();
+                return normalizacion(data);
+            } else {
+                return { error: 'el archivo está vacio' };
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
+    // Método que crea un nuevo objeto
+
+    async nuevo(objeto) {
+        try {
+            let data = await this.leerArchivo();
+            const nuevoObjeto = {
+                id: data.mensajes.length + 1,
+                ...objeto,
+            };
+            data.mensajes.push(nuevoObjeto);
+            fs.writeFileSync(this.archivo, JSON.stringify(data, '', 4), 'utf-8');
+            return data[data.length - 1].id;
+        } catch (error) {
+            return { error: `No se pudo crear el objeto: ${error.message}` };
+        }
     }
 }
 
-async function verificarExistencia() {
-    const knexInstance = knex(optionsSQLite3)
-    try {
-        const rows = await knexInstance('mensajes').select('*');
-        return rows.length > 0;
-    } catch (error) {
-        console.error(error.message);
-    }
+// Normalización y desnormalización
+
+function normalizacion(archivo) {
+    const autorScheme = new schema.Entity('author', {}, { idAttribute: 'id' });
+    const mensajeScheme = new schema.Entity('mensajes', {
+        author: autorScheme,
+    });
+
+    const mensajesScheme = new schema.Entity('mensajes', {
+        mensajes: [mensajeScheme],
+    });
+
+    const dataNormalize = normalize(archivo, mensajesScheme);
+    return dataNormalize;
 }
 
-async function mostrarMensajes() {
-    const knexInstance = knex(optionsSQLite3)
-    const mensajes = await knexInstance('mensajes').select('*')
-    return this.verificarExistencia()
-        ? mensajes.reverse()
-        : { error: "La lista de mensajes está vacia" };
-}
-
-async function guardarMensajes(nuevoMensaje) {
-    const knexInstance = knex(optionsSQLite3)
-    let objetoTemp = {
-        correo: nuevoMensaje.correo,
-        hora: `[${nuevoMensaje.hora}]`,
-        mensaje: nuevoMensaje.mensaje,
-    };
-    const result = await knexInstance('mensajes').insert(objetoTemp);
-}
-
-module.exports = {
-    crearTabla,
-    verificarExistencia,
-    mostrarMensajes,
-    guardarMensajes,
-};
+module.exports = chatdb;
