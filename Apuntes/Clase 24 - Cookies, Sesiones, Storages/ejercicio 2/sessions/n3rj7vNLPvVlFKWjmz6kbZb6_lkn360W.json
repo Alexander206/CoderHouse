@@ -1,0 +1,11 @@
+{
+    "cookie": {
+        "originalMaxAge": null,
+        "expires": null,
+        "httpOnly": true,
+        "path": "/"
+    },
+    "username": "jeisson",
+    "isAuth": true,
+    "__lastAccess": 1668483324689
+}
