@@ -1,0 +1,14 @@
+<h1>Hasta luego {{{name}}}</h1>
+<a href='/'> Volver al inicio</a>
+
+<script>
+    (function () {
+    const optionsDELETE = {
+        method: 'DELETE'
+    };
+
+    fetch(`/logout`, optionsDELETE)
+        .then((res) => res)
+        .then((response) => console.log(response));
+    })();
+</script>
