@@ -1,8 +1,8 @@
-var express = require('express');
+import express from 'express';
 var router = express.Router();
 
-const generarProductoFake = require('../utils/generador.js');
-const productosdb = require('../db/productosdb.js');
+import generarProductoFake from '../utils/generador.js';
+import productosdb from '../db/productosdb.js';
 
 async function fakeProducts(cant) {
     await productosdb.crearTabla();
@@ -18,4 +18,4 @@ router.get('/productos-test', function (req, res, next) {
     res.send('5');
 });
 
-module.exports = router;
+export default router;

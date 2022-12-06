@@ -1,22 +1,30 @@
 <h3 class='login-registrer__title'>
     Iniciar sesión
 </h3>
-<form class='login-registrer__form' action='/aplication'>
-    <label for='email'>
-        <span>Nombre</span>
-        <input type='name' id='name' placeholder='Tu nombre' required />
+<form class='login-registrer__form'>
+    <label for='usermane'>
+        <span>User Name</span>
+        <input type='username' id='username' placeholder='Tu nombre' required />
     </label>
+    <label for='password'>
+        <span>Password</span>
+        <input type='password' id='password' placeholder='Tu nombre' required />
+    </label>
+    <a href="/registrer">¿Registrarse?</a> 
+    <br/>
+    <br/>
     <button id="btn" type='submit'>Ingresar</button>
 </form>
 
 <script>
-    const inputForm = document.getElementById('name');
+    const inputForm = document.getElementById('username');
+    const inputFormPassword = document.getElementById('password');
     const btnSubmit = document.getElementById('btn');
 
     btnSubmit.addEventListener('click', async (event)=>{
         const optionsPOST = {
         method: 'POST',
-        body: JSON.stringify({username: inputForm.value}),
+        body: JSON.stringify({username: inputForm.value, password: inputFormPassword.value}),
         headers: {
             'Content-Type': 'application/json',
         },

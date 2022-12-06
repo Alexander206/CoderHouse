@@ -1,7 +1,7 @@
 <h3 class='login-registrer__title'>
     Registrate
 </h3>
-<form class='login-registrer__form' action='/login'>
+<form class='login-registrer__form'>
     <label for='email'>
         <span>Nombre</span>
         <input type='name' id='name' placeholder='Tu nombre' required />
@@ -10,6 +10,9 @@
         <span>Contraseña</span>
         <input type='password' id='password' placeholder='*******' required />
     </label>
+    <a href="/login">¿Volver a inicio?</a> 
+    <br/>
+    <br/>
     <button id="btn" type='submit'>Registrarse</button>
 </form>
 
@@ -20,9 +23,9 @@
 
 
     btnSubmit.addEventListener('click', async (event)=>{
-        const optionsPOST = {
-        method: 'POST',
-        body: JSON.stringify({username: inputFormName.value, password: inputFormPassword.value }),
+    const optionsPOST = {
+    method: 'POST',
+    body: JSON.stringify({username: inputFormName.value, password: inputFormPassword.value }),
         headers: {
             'Content-Type': 'application/json',
         },

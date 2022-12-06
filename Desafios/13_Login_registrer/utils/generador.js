@@ -1,4 +1,4 @@
-const { faker } = require('@faker-js/faker/locale/es_MX');
+import { faker } from '@faker-js/faker/locale/es_MX';
 
 function generarProductoFake() {
     return {
@@ -8,4 +8,4 @@ function generarProductoFake() {
     };
 }
 
-module.exports = generarProductoFake;
+export default generarProductoFake;
