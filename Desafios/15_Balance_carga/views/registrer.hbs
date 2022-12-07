@@ -1,0 +1,34 @@
+<h3 class='login-registrer__title'>
+    Registrate
+</h3>
+<form class='login-registrer__form' action='/login'>
+    <label for='email'>
+        <span>Nombre</span>
+        <input type='name' id='name' placeholder='Tu nombre' required />
+    </label>
+    <label for='email'>
+        <span>Contraseña</span>
+        <input type='password' id='password' placeholder='*******' required />
+    </label>
+    <button id="btn" type='submit'>Registrarse</button>
+</form>
+
+<script>
+    const inputFormName = document.getElementById('name');
+    const inputFormPassword = document.getElementById('password');
+    const btnSubmit = document.getElementById('btn');
+
+
+    btnSubmit.addEventListener('click', async (event)=>{
+        const optionsPOST = {
+        method: 'POST',
+        body: JSON.stringify({username: inputFormName.value, password: inputFormPassword.value }),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    await fetch('/registrer', optionsPOST)
+        .then((res) => console.log(res));
+    })
+</script>
