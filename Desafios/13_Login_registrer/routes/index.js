@@ -1,69 +1,101 @@
-import express from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 
-var router = express.Router();
+const router = Router();
 
-const verifyAuth = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.status(401).json({ message: 'No puede ingresar a esta zona' });
-    }
+// [Midellware] usuario autenticado
+
+const isAuth = (req, res, next) => {
+    req.isAuthenticated() ? next() : res.render('login');
 };
 
-/* GET home page. */
+// [GET] pagina de inicio.
 
-router.get('/', function (req, res, next) {
+router.get('/', isAuth, (req, res, next) => {
+    res.redirect('/aplication');
+});
+
+// [GET] pagina de la aplicación.
+
+router.get('/aplication', isAuth, (req, res, next) => {
+    const { user } = req;
+    console.log('El usuario :' + user.email + ' se conecto');
+    res.render('index', {
+        name: `${user.firstname} ${user.lastname}`,
+        correo: user.email,
+        nombre: user.firstname,
+        apellido: user.lastname,
+        edad: user.age,
+        alias: user.alias,
+        avatar: user.avatar,
+    });
+});
+
+// [GET] pagina de registro.
+
+router.get('/registrer', (req, res, next) => {
+    res.render('registrer');
+});
+
+// [GET] pagina de registro fallido.
+
+router.get('/failRegistrer', (req, res, next) => {
+    res.render('failRegistrer', { email: 'yo' });
+});
+
+// [GET] pagina de inicio de sesion.
+
+router.get('/login', isAuth, (req, res, next) => {
     res.render('login');
 });
+
+// [GET] pagina de inicio de sesion fallido.
+
+router.get('/failLogin', (req, res, next) => {
+    res.render('failLogin', { email: req.email });
+});
+
+// [GET] pagina de cierre.
+
+router.get('/bye', isAuth, (req, res, next) => {
+    const { user } = req;
+    res.render('bye', { name: `${user.firstname} ${user.lastname}` });
+});
+
+// [POST] ruta para iniciar sesion.
+
+router.post(
+    '/login',
+    passport.authenticate('login', {
+        failureRedirect: '/failLogin',
+        failureMessage: true,
+    }),
+    function (req, res) {
+        res.redirect('/login');
+    },
+);
+
+// [POST] ruta para registrarse.
 
 router.post(
     '/registrer',
     passport.authenticate('registrer', {
         successRedirect: '/login',
-        failureRedirect: '/registrer',
+        failureRedirect: '/failRegistrer',
     }),
-    (req, res) => {
-        const { user } = req.body;
-        console.log('El usuario: ', user.username, 'Se registro');
-    },
 );
 
-router.post('/login', passport.authenticate('login'), (req, res) => {
-    const { user } = req.body;
+// [POST] ruta para cerrar sesion.
 
-    if (!req.isAuthenticated()) {
-        req.statusCode(401).json({ message: ' El usuario o la contraseña son invalidos' });
-        return;
-    } else {
-        res.render('index');
-    }
-});
-
-router.delete('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
     const { user } = req;
     req.logout((error) => {
-        if (error) {
-            return next(error);
+        if (!error) {
+            // res.status(200).render('adios', { user: user.email });
+        } else {
+            res.send('Ocurrio un  error', error.message);
         }
-        res.render({ message: `Adios ${user.email}` });
     });
-});
-
-router.get('/registrer', (req, res) => {
-    res.render('registrer');
-});
-
-router.get('/login', (req, res) => {
-    res.render('login');
-});
-
-router.get('/aplication', verifyAuth, function (req, res, next) {
-    res.render('index', { name: req.session.username });
-});
-
-router.get('/bye', verifyAuth, function (req, res, next) {
-    res.render('bye', { name: req.session.username });
 });
 
 export default router;

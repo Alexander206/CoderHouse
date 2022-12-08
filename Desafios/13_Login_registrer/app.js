@@ -3,12 +3,13 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import expressSession from 'express-session';
+import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcrypt';
 
 import indexRouter from './routes/index.js';
 import productosTest from './routes/productosTest.js';
@@ -22,19 +23,6 @@ const advancedOptions = {
 
 // Midelware de autenticación
 
-app.use(
-    expressSession({
-        store: MongoStore.create({
-            mongoUrl: 'mongodb+srv://root:root@cluster0.exdktjn.mongodb.net/?retryWrites=true&w=majority',
-            mongoOptions: advancedOptions,
-            ttl: 600,
-        }),
-        secret: 'ctJiRS5*1#1r',
-        resave: true,
-        saveUninitialized: true,
-    }),
-);
-
 (() => {
     try {
         const URL = 'mongodb+srv://root:root@cluster0.exdktjn.mongodb.net/test';
@@ -45,30 +33,37 @@ app.use(
     }
 })();
 
-// Autenticación podemos autenticarnos de muchas maneras (google, twiter, facebook, local, etc...)
+// Autenticación: podemos autenticarnos de muchas maneras (google, twiter, facebook, local, etc...)
 
 passport.use(
     'login',
     new LocalStrategy(
         {
-            usernameField: 'username', // Estas opciones es para especificar cuales campos buscar en la autenticación
-            passwordField: 'password',
+            usernameField: 'email',
         },
-        (username, password, done) => {
-            UserModel.findOne({ username })
+        (email, password, done) => {
+            UserModel.findOne({ email })
                 .then((user) => {
                     if (!user) {
-                        console.log(`El usuario ${username} no existe.`);
-                        return done(null, false);
+                        console.log(`El usuario ${email} no se encuentra.`);
+
+                        return done(null, true, {
+                            message: `El usuario ${email} no fue encontrado`,
+                        });
                     }
-                    if (password !== user.password) {
-                        console.log('Invalid Password');
-                        return done(null, false);
+
+                    if (!bcrypt.compareSync(password, user.password)) {
+                        console.log('contraseña invalida');
+
+                        return done(null, false, {
+                            message: 'Contraseña invalida',
+                        });
                     }
-                    return done(null, user);
+                    console.log(user);
+                    done(null, user);
                 })
                 .catch((error) => {
-                    console.log('Error in sign-in', error.message);
+                    console.log('Error al iniciar sesion\n', error.message);
                     done(error);
                 });
         },
@@ -79,48 +74,74 @@ passport.use(
     'registrer',
     new LocalStrategy(
         {
-            usernameField: 'username',
-            passwordField: 'password',
-            // passReqToCallback: true, // Este parametro si esta en true, especifica que el callback reciba el objeto req (request)
+            usernameField: 'email',
+            passReqToCallback: true, // Este parametro si esta en true, especifica que el callback reciba el objeto req (request)
         },
-        (username, password, done) => {
-            UserModel.findOne({ username })
+        (req, email, password, done) => {
+            UserModel.findOne({ email })
                 .then((user) => {
-                    console.log(user);
                     if (user) {
-                        console.log(`El usuario ${username} ya existe.`);
+                        console.log(`El usuario ${email} ya existe.`);
+
                         return done(null, false);
+                    } else {
+                        const salt = bcrypt.genSaltSync(10);
+                        const hash = bcrypt.hashSync(req.body.password, salt);
+                        req.body.password = hash;
+
+                        return UserModel.create(req.body);
                     }
-                    UserModel.create({ username, password });
                 })
                 .then((newUser) => {
-                    console.log(`El usuario ${newUser.username} se registro de manera satisfactoria.`);
-                    done(null, newUser);
+                    console.log(newUser);
+                    if (newUser) {
+                        console.log(`EL usuario ${newUser.email} se registro de manera exitosa.`);
+
+                        done(null, newUser, { message: '' });
+                    } else {
+                        throw new Error('El usuario ya existe');
+                    }
                 })
                 .catch((error) => {
-                    console.log('Error al registrar usuario', error.message);
+                    console.log('Error al registrarse', error.message);
                     done(error);
                 });
         },
     ),
 );
 
+// Serializador de passport
+
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
 
 passport.deserializeUser((_id, done) => {
-    UserModel.findById(_id)
+    UserModel.findOne({ _id })
         .then((user) => done(null, user))
-        .catch((error) => {
-            console.log(`Error en deserealizar el usuario ${error.message}`);
-        });
+        .catch(done);
 });
+
+// Express sesion
+
+app.use(
+    session({
+        secret: '4*#J8f9N59!w',
+        store: MongoStore.create({
+            mongoUrl: 'mongodb+srv://root:root@cluster0.exdktjn.mongodb.net/test',
+            mongoOptions: advancedOptions,
+            ttl: 600,
+        }),
+        rolling: true,
+        resave: false,
+        saveUninitialized: false,
+    }),
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// view engine setup
+// Vista de la setaup del servidor
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

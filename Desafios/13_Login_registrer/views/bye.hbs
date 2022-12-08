@@ -3,11 +3,11 @@
 
 <script>
     (function () {
-    const optionsDELETE = {
-        method: 'DELETE'
+    const optionsPOST = {
+        method: 'POST'
     };
 
-    fetch(`/logout`, optionsDELETE)
+    fetch(`/logout`, optionsPOST)
         .then((res) => res)
         .then((response) => console.log(response));
     })();

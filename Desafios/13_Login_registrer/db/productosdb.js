@@ -63,7 +63,7 @@ async function guardarProducto(nuevoProducto) {
             thumbnail: nuevoProducto.thumbnail,
         };
         const result = await knexInstance('productos').insert(objetoTemp);
-        console.log('Personas creadas: ', result);
+        console.log('Productos creados: ', result);
         return result;
     } else {
         console.log(`No existen productos, crearemos un producto nuevo.`);
@@ -73,7 +73,7 @@ async function guardarProducto(nuevoProducto) {
             thumbnail: nuevoProducto.thumbnail,
         };
         const result = await knexInstance('productos').insert(objetoTemp);
-        console.log('Personas creadas: ', result);
+        console.log('PRoductos creados: ', result);
         return result;
     }
 }
