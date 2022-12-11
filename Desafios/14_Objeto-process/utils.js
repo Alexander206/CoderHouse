@@ -1,7 +1,7 @@
-var bcrypt = require("bcrypt");
-var jwt = "jsonwebtoken";
+var bcrypt = require('bcrypt');
+var jwt = 'jsonwebtoken';
 
-const PRIVATE_KEY = "2U1q*J9G5orh";
+const PRIVATE_KEY = process.env.JWT_PRIVATE_KEY;
 
 export const encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
@@ -12,7 +12,7 @@ export const isValidPassword = (password, target) => {
 };
 
 export const generateToken = (user) => {
-    const token = jwt.sign({ data: user }, PRIVATE_KEY, { expiresIn: "2000h" });
+    const token = jwt.sign({ data: user }, PRIVATE_KEY, { expiresIn: '2000h' });
     return token;
 };
 

@@ -1,12 +1,12 @@
-const { Server } = require('socket.io');
+import { Server } from 'socket.io';
 
 let io;
 
 let today = new Date();
 let now = today.toLocaleString();
 
-const productosdb = require('./db/productosdb');
-const chatdb = require('./db/chatdb');
+import productosdb from './db/productosdb.js';
+import chatdb from './db/chatdb.js';
 const chat = new chatdb();
 // chat.archivo[0].hora = now;
 
@@ -14,8 +14,6 @@ function initSocket(httpServer) {
     io = new Server(httpServer);
     setEvents(io);
 }
-
-console.log();
 
 function setEvents(io) {
     console.log('Configurando el socket');
@@ -73,6 +71,4 @@ function setEvents(io) {
     });
 }
 
-module.exports = {
-    initSocket,
-};
+export default initSocket;

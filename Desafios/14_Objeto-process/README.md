@@ -1,14 +1,28 @@
-# Desafio 11 Login por Formulario
+# Desafio 14 Objeto process
 
-<img src="https://egymerch.com/site_assets/assets/imgs/login/login.png" alt="" width="300">
+<img src="https://desarrolloweb.com/media/395/variables-de-entorno-nodejs.jpg" alt="" width="300">
 
 # Instalación del proyecto
 
 Crear un archivo .dev con las siguientes variables de entorno:
 
-    NODE_PORT=3000
-    NODE_ENV=local
-    BASE_HOST=http://localhost:3000
+    Ejemplo:
+    CLAVE=VALOR
+
+    PORT = 8080
+    NODE_ENV = local
+    BASE_HOST = http://localhost:8080
+    MONGODB_URL = 'url'
+    SECRET_SESSION = 'clave'
+
+    Configuraciónes de MariaDB:
+
+    MARIADB_CLIENT = 'mysql'
+    MARIADB_HOST = 'localhost'
+    MARIADB_PORT = 3306
+    MARIADB_USER = 'root'
+    MARIADB_PASSWORD = ''
+    MARIADB_DATABASE = 'productosdb'
 
 Instalar dependencias de npm
 
@@ -16,22 +30,28 @@ Instalar dependencias de npm
 
 # Consigna
 
-Continuando con el desafío de la clase anterior, vamos a incorporar un mecanismo sencillo que permite loguear un cliente por su nombre, mediante un formulario de ingreso.
+Sobre el proyecto del último desafío entregable, mover todas las claves y credenciales utilizadas a un archivo .env , y cargarlo mediante la librería dotenv.
 
-Luego de que el usuario esté logueado, se mostrará sobre el contenido del sitio un cartel con el mensaje “Bienvenido” y el nombre de usuario. Este cartel tendrá un botón de deslogueo a su derecha.
+La única configuración que no va a ser manejada con esta librería va a ser el puerto de escucha del servidor. Éste deberá ser leído de los argumento pasados por línea de comando, usando alguna librería (minimist o yargs). En el caso de no pasar este parámetro por línea de comandos, conectar por defecto al puerto 8080.
 
-Verificar que el cliente permanezca logueado en los reinicios de la página, mientras no expire el tiempo de inactividad de un minuto, que se recargará con cada request. En caso de alcanzarse ese tiempo, el próximo request de usuario nos llevará al formulario de login.
+Observación: por el momento se puede dejar la elección de sesión y de persistencia explicitada en el código mismo. Más adelante haremos también parametrizable esta configuración.
 
-Al desloguearse, se mostrará una vista con el mensaje de 'Hasta luego' más el nombre y se retornará automáticamente, luego de dos segundos, a la vista de login de usuario.
+Agregar una ruta '/info' que presente en una vista sencilla los siguientes datos:
 
-# Detalles del entregable:
+-   Argumentos de entrada
+-   Path de ejecución
+-   Nombre de la plataforma (sistema operativo)
+-   Process id
+-   Versión de node.js
+-   Carpeta del proyecto
+-   Memoria total reservada (rss)
 
-- La solución entregada deberá persistir las sesiones de usuario en Mongo Atlas.
+Agregar otra ruta '/api/randoms' que permita calcular un cantidad de números aleatorios en el rango del 1 al 1000 especificada por parámetros de consulta (query).
 
-- Verificar que en los reinicios del servidor, no se pierdan las sesiones activas de los clientes.
+    Por ej: /randoms?cant=20000.
 
-- Mediante el cliente web de Mongo Atlas, revisar los id de sesión correspondientes a cada cliente y sus datos.
+Si dicho parámetro no se ingresa, calcular 100.000.000 números.
 
-- Borrar una sesión de cliente en la base y comprobar que en el próximo request al usuario se le presente la vista de login.
+El dato devuelto al frontend será un objeto que contendrá como claves los números random generados junto a la cantidad de veces que salió cada uno. Esta ruta no será bloqueante (utilizar el método fork de child process). Comprobar el no bloqueo con una cantidad de 500.000.000 de randoms.
 
-- Fijar un tiempo de expiración de sesión de 10 minutos recargable con cada visita del cliente al sitio y verificar que si pasa ese tiempo de inactividad el cliente quede deslogueado.
+### Observación: utilizar routers y apis separadas para esta funcionalidad.

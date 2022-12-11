@@ -1,56 +1,101 @@
-var express = require("express");
-var router = express.Router();
+import { Router } from 'express';
+import passport from 'passport';
 
-var passport = require("passport");
+let router = Router();
 
-const usuarios = require('../db/usuarios.js')
+// [Midellware] usuario autenticado
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-    res.render("registrer");
+const isAuth = (req, res, next) => {
+    req.isAuthenticated() ? next() : res.render('login');
+};
+
+// [GET] pagina de inicio.
+
+router.get('/', isAuth, (req, res, next) => {
+    res.redirect('/aplication');
 });
 
-router.post("/registrer", passport.authenticate("registrer"), (req, res) => {
-    const { username, password } = req.body;
-    console.log(username, password);
-    if (req.session.password || req.session.username) {
-        res.render("index", { name: req.session.username });
-    } else {
-        req.session.username = username;
-        req.session.password = password;
-        res.render("login");
-    }
+// [GET] pagina de la aplicación.
+
+router.get('/aplication', isAuth, (req, res, next) => {
+    const { user } = req;
+    console.log('El usuario :' + user.email + ' se conecto');
+    res.render('index', {
+        name: `${user.firstname} ${user.lastname}`,
+        correo: user.email,
+        nombre: user.firstname,
+        apellido: user.lastname,
+        edad: user.age,
+        alias: user.alias,
+        avatar: user.avatar,
+    });
 });
 
-/* 
-router.post("/login", (req, res) => {
-    const { username } = req.body;
+// [GET] pagina de registro.
 
-    if (username || req.session.username) {
-        req.session.username = username;
-        req.session.isAuth = true;
-        res.render("index", { name: req.session.username });
-    } else {
-        res.render("login");
-    }
+router.get('/registrer', (req, res, next) => {
+    res.render('registrer');
 });
 
-router.get("/aplication", auth, function (req, res, next) {
-    res.render("index", { name: req.session.username });
+// [GET] pagina de registro fallido.
+
+router.get('/failRegistrer', (req, res, next) => {
+    res.render('failRegistrer', { email: 'yo' });
 });
 
-router.get("/bye", auth, function (req, res, next) {
-    res.render("bye", { name: req.session.username });
+// [GET] pagina de inicio de sesion.
+
+router.get('/login', isAuth, (req, res, next) => {
+    res.render('login');
 });
 
-router.delete("/logout", auth, (req, res) => {
-    req.session.destroy((error) => {
+// [GET] pagina de inicio de sesion fallido.
+
+router.get('/failLogin', (req, res, next) => {
+    res.render('failLogin', { email: req.email });
+});
+
+// [GET] pagina de cierre.
+
+router.get('/bye', isAuth, (req, res, next) => {
+    const { user } = req;
+    res.render('bye', { name: `${user.firstname} ${user.lastname}` });
+});
+
+// [POST] ruta para iniciar sesion.
+
+router.post(
+    '/login',
+    passport.authenticate('login', {
+        failureRedirect: '/failLogin',
+        failureMessage: true,
+    }),
+    function (req, res) {
+        res.redirect('/login');
+    },
+);
+
+// [POST] ruta para registrarse.
+
+router.post(
+    '/registrer',
+    passport.authenticate('registrer', {
+        successRedirect: '/login',
+        failureRedirect: '/failRegistrer',
+    }),
+);
+
+// [POST] ruta para cerrar sesion.
+
+router.post('/logout', (req, res, next) => {
+    const { user } = req;
+    req.logout((error) => {
         if (!error) {
-            res.render("bye");
+            // res.status(200).render('adios', { user: user.email });
         } else {
-            res.send("Ah ocurrido un error al cerrar sesion", error.message);
+            res.send('Ocurrio un  error', error.message);
         }
     });
-}); */
+});
 
-module.exports = router;
+export default router;

@@ -1,10 +1,12 @@
 // Importando dependencias
-const fs = require('fs');
-const path = require('path');
-const { schema } = require('normalizr');
-const { normalize } = require('normalizr');
-const { denormalize } = require('normalizr');
-const util = require('util');
+import fs from 'fs';
+import path from 'path';
+import { schema, normalize, denormalize } from 'normalizr';
+import util from 'util';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class chatdb {
     constructor() {
@@ -73,4 +75,4 @@ function normalizacion(archivo) {
     return dataNormalize;
 }
 
-module.exports = chatdb;
+export default chatdb;
