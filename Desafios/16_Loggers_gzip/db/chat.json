@@ -1,0 +1,44 @@
+{
+    "id": "mensajes",
+    "mensajes": [
+        {
+            "id": 1,
+            "author": {
+                "id": "admin@prueba.com",
+                "nombre": "Usuario",
+                "apellido": "Administrador",
+                "edad": 0,
+                "alias": "Admin",
+                "avatar": "https://cdn-icons-png.flaticon.com/512/1466/1466134.png"
+            },
+            "text": "Si necesitas soporte escribe tu correo electrónico, envia un mensaje y mantente en linea. Estamos felices de poderte ayudar 🫡",
+            "hora": "AL inicio de los tiempos"
+        },
+        {
+            "id": 2,
+            "author": {
+                "id": "pruebita@gmail.com",
+                "nombre": "Jeisson Alexander",
+                "apellido": "Murcia",
+                "edad": "24",
+                "alias": "Alex",
+                "avatar": "https://cdn-icons-png.flaticon.com/128/1090/1090806.png"
+            },
+            "text": "hola",
+            "hora": "14/11/2022, 13:32:59"
+        },
+        {
+            "id": 3,
+            "author": {
+                "id": "alexamarok260@gmail.com",
+                "nombre": "Jeisson Alexander",
+                "apellido": "Gavilan Murcia",
+                "edad": "25",
+                "alias": "Alex",
+                "avatar": "https://media-exp1.licdn.com/dms/image/D5603AQGR7ZPTAQvh9w/profile-displayphoto-shrink_800_800/0/1665088793878?e=2147483647&v=beta&t=rKXAgVgtguK4B6aipcwgQUp-6ASvkLXdADilesB-cHE"
+            },
+            "text": "Hola",
+            "hora": "8/12/2022, 17:20:07"
+        }
+    ]
+}
