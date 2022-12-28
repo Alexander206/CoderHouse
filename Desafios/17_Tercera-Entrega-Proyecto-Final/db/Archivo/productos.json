@@ -1,0 +1,42 @@
+[
+    {
+        "id": "585c1164-45c4-11ed-b878-0242ac120002",
+        "timestamp": "",
+        "nombre": "Zapato casual",
+        "descripcion": "Zapato en cuero suela en TR",
+        "codigo": "9004",
+        "foto": "./assets/imgProductos/9004.jpg",
+        "precio": 110000,
+        "stock": 6
+    },
+    {
+        "id": "63a0ac60-45c4-11ed-b878-0242ac120002",
+        "timestamp": "28/12/2022, 10:43:50 a. m.",
+        "nombre": "Zapato editado jaja",
+        "descripcion": "zapato EDITADO para prueba en postman",
+        "codigo": "1111",
+        "foto": "./assets/imgProductos/1357.jpg",
+        "precio": "1",
+        "stock": "1"
+    },
+    {
+        "id": "252e86ac-612c-4ce6-a48b-14e68d19446b",
+        "timestamp": "6/11/2022, 10:06:06 a. m.",
+        "nombre": "Zapato mujer",
+        "descripcion": "asd",
+        "codigo": "0000",
+        "foto": "https://http2.mlstatic.com/D_NQ_NP_925974-MCO47031522363_082021-O.jpg",
+        "precio": "0",
+        "stock": "0"
+    },
+    {
+        "id": "a1742c4e-0eb9-4f6b-bec2-a1873e36babb",
+        "timestamp": "12/11/2022, 4:24:39 p. m.",
+        "nombre": "Zapato nuevo",
+        "descripcion": "zapato para prueba en postman",
+        "codigo": "0000",
+        "foto": "./assets/imgProductos/1357.jpg",
+        "precio": 0,
+        "stock": 0
+    }
+]

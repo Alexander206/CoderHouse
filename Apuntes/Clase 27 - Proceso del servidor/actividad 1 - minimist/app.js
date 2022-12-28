@@ -3,8 +3,8 @@ import minimist from 'minimist';
 
 const opts = {
     default: {
-        modo: 'prod',
         puerto: 0,
+        modo: 'prod',
         debug: false,
     },
     alias: {

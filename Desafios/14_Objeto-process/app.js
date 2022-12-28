@@ -12,8 +12,6 @@ import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
 
 import indexRouter from './routes/index.js';
-import productosTest from './routes/productosTest.js';
-import info from './routes/info.js';
 import UserModel from './model/user.js';
 
 const app = express();
@@ -159,8 +157,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // rutas
 
 app.use('/', indexRouter);
-app.use('/api', productosTest);
-app.use('/api', info);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
