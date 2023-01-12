@@ -1,4 +1,4 @@
-# Desafio 16 LOGGERS Y GZIP
+# Desafio 18 Arquitectura por capas
 
 <img src="https://kinsta.com/it/wp-content/uploads/sites/2/2018/06/wp-cli-v2.png" alt="" width="300">
 
