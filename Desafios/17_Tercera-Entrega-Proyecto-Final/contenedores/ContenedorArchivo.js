@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const today = new Date();
 
 // generador de id
-import { v4 as uuidv4 } from 'uuid';
+import randomId from 'random-id';
 
 // Ruta del archivo
 const __filename = fileURLToPath(import.meta.url);
@@ -70,7 +70,7 @@ class ContenedorArchivo {
             let data = await this.leerArchivo();
             const hora = today.toLocaleString();
             const nuevoObjeto = {
-                id: uuidv4(),
+                id: randomId(8, 'aA0'),
                 timestamp: hora,
                 ...objeto,
             };
