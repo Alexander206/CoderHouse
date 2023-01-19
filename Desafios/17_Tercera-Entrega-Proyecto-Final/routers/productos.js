@@ -25,7 +25,7 @@ const STATUS_CODE = {
     BAD_REQUEST: 400,
 };
 
-const directorioProductos = '/../public/assets/imgProductos/';
+const directorioProductos = '/../public/imgProductos/';
 
 /* ----- Rutas CRUD ----- */
 

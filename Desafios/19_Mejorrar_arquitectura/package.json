@@ -1,25 +1,15 @@
 {
-  "name": "7_primera-entrega-proyecto-final",
+  "name": "14_lobjeto_process",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon -r dotenv/config index.js",
-    "dev:wait": "npx nodemon --exec 'node -r dotenv/config' ./index.js"
+    "start": "node ./bin/www",
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js -r dotenv/config ./bin/www",
+    "dev:wait": "npx nodemon --exec 'node -r dotenv/config' ./bin/www"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "connect-busboy": "^1.0.0",
-    "express-useragent": "^1.0.15",
-    "firebase-admin": "^11.2.0",
-    "fs-extra": "^11.1.0",
-    "msql": "^1.0.3",
-    "random-id": "^1.0.4",
-    "vary": "^1.1.2",
     "@faker-js/faker": "^7.6.0",
     "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
@@ -51,5 +41,8 @@
   "devDependencies": {
     "dotenv": "^16.0.2",
     "nodemon": "^2.0.19"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
