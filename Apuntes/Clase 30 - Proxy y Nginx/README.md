@@ -1,6 +1,6 @@
 # Proxy
 
-Un servidor proxy es un intermediario entre las conexiones de un cliente y un servidor de destino, filtrando todos los paquetes entre ambos.
+Un servidor proxy es un `intermediario` entre las conexiones de un cliente y un servidor de destino, filtrando todos los paquetes entre ambos.
 
 Sin el proxy, la conexión entre cliente y servidor de origen a través de la web es directa.
 
@@ -56,13 +56,17 @@ Existen varios beneficios por lo que, al crear un sitio web, conviene utilizar u
 
 -   Se usa para solucionar el problema que se genera al correr nuestra app Node en el puerto 80, para qye sea accesible desde una IP o dominio, y que queremos utilizar el mismo puerto con otro proceso.
 
+-   Ya Node no es el proveedor de ficheros estaticos, sino que lo hace NGINX
+
 ## Configurar Nginx para windows
 
--   Para configurar Nginx hay que descargarlo del link https://nginx.org/en/download.html
+-   Para configurar Nginx hay que descargarlo del link https://nginx.org/en/download.
+-   Descargar la ultima versión Mainline
 
 ### Configurar Nginx con proxy inverso
 
 -   Se debe de cambiar el codigo del archivo nginx.conf de la carpeta conf del Nginx por el siguiente código:
+-   La carpeta esta ubicada en el disco local C.
 
         events {
         }
@@ -88,3 +92,17 @@ Existen varios beneficios por lo que, al crear un sitio web, conviene utilizar u
         }
 
 Podemos usarlo como intermediario para generar escalabilidad horizontal de los servicios que damos por node
+
+# Comandos con Nginx:
+
+-   `Servicios iniciados:` tasklist /fi "imagename eq nginx.exe"
+-   `Apagar servicios:` ./nginx.exe -s stop
+-   `Apagarlo con mas flow:` ./nginx.exe -s quit
+-   `Reiniciar el server:` ./nginx.exe -s reload
+-   `Reabrir logs:` ./nginx.exe -s reopen
+
+# Desplegando un servidor sencillo con Nginx
+
+Toca cambiar la ruta dentro del archivo de configuración de Nginx y ejecurar en pm2 los proyectos, antes de inicializar en Nginx. Hay que tener en cuenta que funciona como proxy y balanceador de carga, nos distribulle en diferentes puertos dependeindo los requerimientos del cliente.
+
+Nginx hace entrega de los recursos estaticos para no sobrecargar el servidor.

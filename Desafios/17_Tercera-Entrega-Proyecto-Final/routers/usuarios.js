@@ -46,7 +46,7 @@ router.post(
         failureRedirect: '/failRegistrer',
     }),
     function (req, res) {
-        res.redirect('/');
+        res.status(STATUS_CODE.OK).send({ session: true });
     },
 );
 

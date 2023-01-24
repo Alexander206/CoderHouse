@@ -220,6 +220,7 @@ app.use(function (err, req, res, next) {
 
 app.use('/api', productos);
 app.use('/api', carrito);
+app.use('/api', usuarios);
 
 // --> Middleware petición a otra pagina
 app.use((req, res) => {

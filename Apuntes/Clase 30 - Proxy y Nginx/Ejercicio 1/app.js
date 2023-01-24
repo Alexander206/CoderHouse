@@ -1,6 +1,6 @@
 import express from 'express';
 import http from 'http';
-import minimist from 'minimist';
+import minimist from 'minimist'; // Para recibir parametros mediante terminal.
 import cluster from 'cluster';
 import os from 'os';
 
@@ -35,7 +35,7 @@ if (mode === 'cluster' && cluster.isPrimary) {
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(express.static('public'));
+    // app.use(express.static('public'));
 
     app.get('/datos', (req, res) => {
         console.log(`Here from process ${process.pid} litening in port ${PORT}.`);
