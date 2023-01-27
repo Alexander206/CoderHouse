@@ -5,16 +5,30 @@ import debug from 'debug';
 import http from 'http';
 import initSocket from '../Socket.js';
 import minimist from 'minimist';
+import winston from 'winston';
+
+/* Manejo de logs */
+
+const logger = winston.createLogger({
+  // Instancia de winston | Tipos de logs --> Silly, Debug, Verbose, Info, Warn, Error
+  level: 'info', // Consifuración del logger
+  transports: [
+    new winston.transports.Console({ level: 'info' }),
+    new winston.transports.File({ filename: 'output.log', level: 'info' }),
+    new winston.transports.File({ filename: 'warn.log', level: 'warn' }),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+  ],
+});
 
 const optsMinimist = {
-    default: {
-        port: process.env.PORT,
-        mode: 'fork',
-    },
-    alias: {
-        p: 'port',
-        m: 'mode',
-    },
+  default: {
+    port: process.env.PORT,
+    mode: 'fork',
+  },
+  alias: {
+    p: 'port',
+    m: 'mode',
+  },
 };
 
 const { port: PORT, mode } = minimist(process.argv.slice(2), optsMinimist);
@@ -36,8 +50,8 @@ initSocket(server);
  */
 
 server.listen(port, () => {
-    console.log(`Servidor http esta escuchando en el puerto ${server.address().port}`);
-    console.log(`http://localhost:${server.address().port}`);
+  logger.info(`Servidor http esta escuchando en el puerto ${server.address().port}`);
+  logger.info(`http://localhost:${server.address().port}`);
 });
 server.on('error', onError);
 server.on('listening', onListening);
@@ -47,19 +61,19 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-    let port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-    if (port >= 0) {
-        // port number
-        return port;
-    }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -67,25 +81,25 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-    let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      logger.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      logger.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 }
 
 /**
@@ -93,7 +107,7 @@ function onError(error) {
  */
 
 function onListening() {
-    let addr = server.address();
-    let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+  let addr = server.address();
+  let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
 }

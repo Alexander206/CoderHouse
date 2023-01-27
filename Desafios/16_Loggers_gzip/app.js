@@ -10,133 +10,147 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
 import bcrypt from 'bcrypt';
+import winston from 'winston';
 
 import indexRouter from './routes/index.js';
 import productosTest from './routes/productosTest.js';
 import info from './routes/info.js';
 import UserModel from './model/user.js';
 
+/* Manejo de logs */
+
+const logger = winston.createLogger({
+  // Instancia de winston | Tipos de logs --> Silly, Debug, Verbose, Info, Warn, Error
+  level: 'info', // Consifuración del logger
+  transports: [
+    new winston.transports.Console({ level: 'info' }),
+    new winston.transports.File({ filename: 'output.log', level: 'info' }),
+    new winston.transports.File({ filename: 'warn.log', level: 'warn' }),
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+  ],
+});
+
 const app = express();
 const advancedOptions = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 };
 
 // Midelware de autenticación
 
 (() => {
-    try {
-        const URL = process.env.MONGODB_URL;
-        mongoose.connect(URL);
-        console.log('Conectado a la base de datos.');
-    } catch (error) {
-        console.error('Error en conectarse a la base de datos: ', error.message);
-    }
+  try {
+    const URL = process.env.MONGODB_URL;
+    mongoose.connect(URL);
+    logger.info('Conectado a la base de datos.');
+  } catch (error) {
+    logger.error('Error en conectarse a la base de datos: ', error.message);
+  }
 })();
 
 // Autenticación: podemos autenticarnos de muchas maneras (google, twiter, facebook, local, etc...)
 
 passport.use(
-    'login',
-    new LocalStrategy(
-        {
-            usernameField: 'email',
-        },
-        (email, password, done) => {
-            UserModel.findOne({ email })
-                .then((user) => {
-                    if (!user) {
-                        console.log(`El usuario ${email} no se encuentra.`);
+  'login',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    (email, password, done) => {
+      UserModel.findOne({ email })
+        .then((user) => {
+          if (!user) {
+            logger.info(`El usuario ${email} no se encuentra.`);
 
-                        return done(null, true, {
-                            message: `El usuario ${email} no fue encontrado`,
-                        });
-                    }
+            return done(null, true, {
+              message: `El usuario ${email} no fue encontrado`,
+            });
+          }
 
-                    if (!bcrypt.compareSync(password, user.password)) {
-                        console.log('contraseña invalida');
+          if (!bcrypt.compareSync(password, user.password)) {
+            logger.info('contraseña invalida');
 
-                        return done(null, false, {
-                            message: 'Contraseña invalida',
-                        });
-                    }
-                    console.log(user);
-                    done(null, user);
-                })
-                .catch((error) => {
-                    console.log('Error al iniciar sesion\n', error.message);
-                    done(error);
-                });
-        },
-    ),
+            return done(null, false, {
+              message: 'Contraseña invalida',
+            });
+          }
+          logger.info(user);
+          done(null, user);
+        })
+        .catch((error) => {
+          logger.info('Error al iniciar sesion\n', error.message);
+          done(error);
+        });
+    },
+  ),
 );
 
 passport.use(
-    'registrer',
-    new LocalStrategy(
-        {
-            usernameField: 'email',
-            passReqToCallback: true, // Este parametro si esta en true, especifica que el callback reciba el objeto req (request)
-        },
-        (req, email, password, done) => {
-            UserModel.findOne({ email })
-                .then((user) => {
-                    if (user) {
-                        console.log(`El usuario ${email} ya existe.`);
+  'registrer',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passReqToCallback: true, // Este parametro si esta en true, especifica que el callback reciba el objeto req (request)
+    },
+    (req, email, password, done) => {
+      UserModel.findOne({ email })
+        .then((user) => {
+          if (user) {
+            logger.info(`El usuario ${email} ya existe.`);
 
-                        return done(null, false);
-                    } else {
-                        const salt = bcrypt.genSaltSync(10);
-                        const hash = bcrypt.hashSync(req.body.password, salt);
-                        req.body.password = hash;
+            return done(null, false);
+          } else {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(req.body.password, salt);
+            req.body.password = hash;
 
-                        return UserModel.create(req.body);
-                    }
-                })
-                .then((newUser) => {
-                    console.log(newUser);
-                    if (newUser) {
-                        console.log(`EL usuario ${newUser.email} se registro de manera exitosa.`);
+            return UserModel.create(req.body);
+          }
+        })
+        .then((newUser) => {
+          logger.info(newUser);
+          if (newUser) {
+            logger.info(`EL usuario ${newUser.email} se registro de manera exitosa.`);
 
-                        done(null, newUser, { message: '' });
-                    } else {
-                        throw new Error('El usuario ya existe');
-                    }
-                })
-                .catch((error) => {
-                    console.log('Error al registrarse', error.message);
-                    done(error);
-                });
-        },
-    ),
+            done(null, newUser, { message: '' });
+          } else {
+            throw new Error('El usuario ya existe');
+          }
+        })
+        .catch((error) => {
+          logger.info('Error al registrarse', error.message);
+          done(error);
+        });
+    },
+  ),
 );
 
 // Serializador de passport
 
 passport.serializeUser((user, done) => {
-    done(null, user._id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((_id, done) => {
-    UserModel.findOne({ _id })
-        .then((user) => done(null, user))
-        .catch(done);
+  UserModel.findOne({ _id })
+    .then((user) => done(null, user))
+    .catch(done);
 });
 
 // Express sesion
 
 app.use(
-    session({
-        secret: process.env.SECRET_SESSION,
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGODB_URL,
-            mongoOptions: advancedOptions,
-            ttl: 600,
-        }),
-        rolling: true,
-        resave: false,
-        saveUninitialized: false,
+  session({
+    secret: process.env.SECRET_SESSION,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URL,
+      mongoOptions: advancedOptions,
+      ttl: 600,
     }),
+    rolling: true,
+    resave: false,
+    saveUninitialized: false,
+  }),
 );
 
 app.use(passport.initialize());
@@ -164,18 +178,18 @@ app.use('/api', info);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    next(createError(404));
+  next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 export default app;
