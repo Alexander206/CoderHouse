@@ -8,7 +8,6 @@ let now = today.toLocaleString();
 import productosdb from './db/productosdb.js';
 import chatdb from './db/chatdb.js';
 const chat = new chatdb();
-// chat.archivo[0].hora = now;
 
 function initSocket(httpServer) {
     io = new Server(httpServer);
