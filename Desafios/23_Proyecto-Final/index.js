@@ -1,49 +1,50 @@
 // * ----- Dependencias ----- * \\
 
 // --> 🌍 Server web 🌍 <--
-import express from 'express'; // Framework para crear servidores web
-import cors from 'cors'; // Control de acceso HTTP
-import debug from 'debug'; // Configuraciones para la depuración
-import http from 'http'; // Funciones del protocolo
-import createError from 'http-errors'; // Manejador de errores HTTP
+import express from "express"; // Framework para crear servidores web
+import cors from "cors"; // Control de acceso HTTP
+import debug from "debug"; // Configuraciones para la depuración
+import http from "http"; // Funciones del protocolo
+import createError from "http-errors"; // Manejador de errores HTTP
 
 // --> 🛠️ Utilidades 🛠️ <--
-import { fileURLToPath } from 'url'; // Manejo de rutas con PATH
-import path from 'path'; // Manejo de rutas de archivos
-import minimist from 'minimist'; // Manejo de parametros de entrada
-import bcrypt from 'bcrypt'; // Cifrado de contraseñas
+import { fileURLToPath } from "url"; // Manejo de rutas con PATH
+import path from "path"; // Manejo de rutas de archivos
+import minimist from "minimist"; // Manejo de parametros de entrada
+import bcrypt from "bcrypt"; // Cifrado de contraseñas
 
 // --> 🧺 Midelware 🧺 <--
-import busboy from 'connect-busboy'; // Formularios con archivos
-import cookieParser from 'cookie-parser'; // Uso de cookies encriptadas
-import logger from 'morgan'; // Manejar registros en la aplicación
-import session from 'express-session'; // Manejo de sesiones [usuario] en la aplicación.
-import passport from 'passport'; // Manejo en las estrategias de autenticación de usuario.
-import { Strategy as LocalStrategy } from 'passport-local'; // Estrategias de autenticación locales.
+import busboy from "connect-busboy"; // Formularios con archivos
+import cookieParser from "cookie-parser"; // Uso de cookies encriptadas
+import logger from "morgan"; // Manejar registros en la aplicación
+import session from "express-session"; // Manejo de sesiones [usuario] en la aplicación.
+import passport from "passport"; // Manejo en las estrategias de autenticación de usuario.
+import { Strategy as LocalStrategy } from "passport-local"; // Estrategias de autenticación locales.
 
 // --> 👥 Servidor Web Socket 👥 <--
-import initSocket from './Socket.js';
+import initSocket from "./Socket.js";
 
 // --> 📖 DataBase 📖 <--
-import mongoose from 'mongoose'; // Manejo de bases de datos con Mongo DB
-import MongoStore from 'connect-mongo'; // Manejo de sesiones [usuario] en Mongo DB
-import UserModel from './db/models/modelMongoUser.js'; // Modelo para el usuario
+import mongoose from "mongoose"; // Manejo de bases de datos con Mongo DB
+import MongoStore from "connect-mongo"; // Manejo de sesiones [usuario] en Mongo DB
+import UserModel from "./db/models/modelMongoUser.js"; // Modelo para el usuario
 
 // --> ♾️ Rutas de la API ♾️ <--
-import carrito from './routers/carrito.js';
-import productos from './routers/productos.js';
-import usuarios from './routers/usuarios.js';
+import carrito from "./routers/carrito.js";
+import productos from "./routers/productos.js";
+import usuarios from "./routers/usuarios.js";
+import messageEmail from "./routers/messageEmail.js";
 
 // * ----- PARAMETROS DE ENTRADA ----- * \\
 
 const optsMinimist = {
   default: {
     port: process.env.NODE_PORT,
-    mode: 'fork',
+    mode: "fork",
   },
   alias: {
-    p: 'port',
-    m: 'mode',
+    p: "port",
+    m: "mode",
   },
 };
 
@@ -62,7 +63,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // --> Se guarda el puerto en Express
-app.set('port', PORT);
+app.set("port", PORT);
 
 // * ----- MIDDLEWARE ----- * \\
 
@@ -73,18 +74,18 @@ app.set('port', PORT);
   try {
     const URL = process.env.MONGO_CLOUD_URL;
     mongoose.connect(URL);
-    console.log('Conectado a la base de datos.');
+    console.log("Conectado a la base de datos.");
   } catch (error) {
-    console.error('Error en conectarse a la base de datos: ', error.message);
+    console.error("Error en conectarse a la base de datos: ", error.message);
   }
 })();
 
 // --> Autenticación: [inicio de sesion] podemos autenticarnos de muchas maneras (google, twiter, facebook, local, etc...)
 passport.use(
-  'login',
+  "login",
   new LocalStrategy(
     {
-      usernameField: 'email',
+      usernameField: "email",
     },
     (email, password, done) => {
       UserModel.findOne({ email })
@@ -98,29 +99,44 @@ passport.use(
           }
 
           if (!bcrypt.compareSync(password, user.password)) {
-            console.log('contraseña invalida.');
+            console.log("contraseña invalida.");
 
             return done(null, false, {
-              message: 'Contraseña invalida.',
+              message: "Contraseña invalida.",
             });
           }
           console.log(user);
           done(null, user);
         })
         .catch((error) => {
-          console.log('Error al iniciar sesion\n', error.message);
+          console.log("Error al iniciar sesion\n", error.message);
           done(error);
         });
-    },
-  ),
+
+      app.use((req, res, next) => {
+        res.sendResponse = res.send;
+        res.send = function (body) {
+          if (body && body.error && body.status) {
+            return res.status(body.status).json({
+              error: -2,
+              descripcion: body.error,
+              método: req.method,
+            });
+          }
+          return res.sendResponse(body);
+        };
+        next();
+      });
+    }
+  )
 );
 
 // --> Autenticación: [registro]
 passport.use(
-  'registrer',
+  "registrer",
   new LocalStrategy(
     {
-      usernameField: 'email',
+      usernameField: "email",
       passReqToCallback: true, // Este parametro si esta en true, especifica que el callback reciba el objeto req (request)
     },
     (req, email, password, done) => {
@@ -143,17 +159,17 @@ passport.use(
           if (newUser) {
             console.log(`EL usuario ${newUser.email} se registro de manera exitosa.`);
 
-            done(null, newUser, { message: '' });
+            done(null, newUser, { message: "" });
           } else {
-            throw new Error('El usuario ya existe');
+            throw new Error("El usuario ya existe");
           }
         })
         .catch((error) => {
-          console.log('Error al registrarse', error.message);
+          console.log("Error al registrarse", error.message);
           done(error);
         });
-    },
-  ),
+    }
+  )
 );
 
 // --> Serializador de passport
@@ -186,7 +202,7 @@ app.use(
     rolling: true,
     resave: false,
     saveUninitialized: false,
-  }),
+  })
 );
 
 // --> Midelware de aplicación <--
@@ -196,7 +212,7 @@ app.use(cors());
 // -> Formulario con archivos
 app.use(busboy());
 // --> Registro en la aplicación [Logs, alerts, etc]
-app.use(logger('dev'));
+app.use(logger("dev"));
 // --> Cookies encriptadas
 app.use(cookieParser());
 // --> Inicializa una sesión con Passport
@@ -208,19 +224,19 @@ app.use(express.json());
 // -> Pasa rutas a objeto
 app.use(express.urlencoded({ extended: true }));
 // -> Se define una carpeta publica
-app.use('/', express.static(path.join(__dirname, 'public/')));
+app.use("/", express.static(path.join(__dirname, "public/")));
 
 //  --> Middleware de manejo de errores
 app.use(function (err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 
 // * ----- RUTAS DE APLICACIÓN ----- * \\
 
-app.use('/api', productos);
-app.use('/api', carrito);
-app.use('/api', usuarios);
+app.use("/api", productos);
+app.use("/api", carrito);
+app.use("/api", usuarios);
 
 // --> Middleware petición a otra pagina
 app.use((req, res) => {
@@ -228,7 +244,7 @@ app.use((req, res) => {
     error: -2,
     descripcion: `ruta: ${req.originalUrl} `,
     método: req.method,
-    estado: 'no implementada',
+    estado: "no implementada",
   });
 });
 
@@ -241,18 +257,18 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   // Establecer locales, solo proporcionando error en el desarrollo
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // Renderizar la página de error
   res.status(err.status || 500);
-  res.render('error');
+  res.render("error");
 });
 
 // * ----- ESCUCHA EN EL PUERTO DEFINIDO ----- * \\
 
 const server = http.createServer(app);
 
-// initSocket(server);
+initSocket(server);
 
 server.listen(PORT, () => {
   console.log(`Servidor http esta escuchando en el puerto ${server.address().port}`);
@@ -260,7 +276,7 @@ server.listen(PORT, () => {
   console.log(`Environment:${ENV}`);
 });
 
-server.on('error', (error) => console.log(`Error en servidor ${error}`));
+server.on("error", (error) => console.log(`Error en servidor ${error}`));
 
 //* ----- FUNCIONES ----- *\\
 
@@ -283,20 +299,20 @@ function normalizePort(val) {
 
 // --> Escucha de eventos para el evento de "error" del servidor HTTP.
 function onError(error) {
-  if (error.syscall !== 'listen') {
+  if (error.syscall !== "listen") {
     throw error;
   }
 
-  let bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   // manejar errores de escucha específicos con mensajes amistosos
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
       process.exit(1);
       break;
     default:
@@ -307,6 +323,6 @@ function onError(error) {
 // --> Escucha de eventos para el evento de "escucha" del servidor HTTP.
 function onListening() {
   let addr = server.address();
-  let bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  let bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
 }
